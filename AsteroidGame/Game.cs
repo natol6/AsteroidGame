@@ -13,7 +13,7 @@ namespace AsteroidGame
     {
         private static BufferedGraphicsContext _context;
         public static BufferedGraphics Buffer;
-        public static Timer timer;
+        //public static Timer timer;
         // Свойства
         // Ширина и высота игрового поля
         public static int Width { get; set; }
@@ -37,7 +37,7 @@ namespace AsteroidGame
             // Связываем буфер в памяти с графическим объектом, чтобы рисовать в буфере
             Buffer = _context.Allocate(g, new Rectangle(0, 0, Width, Height));
             Load();
-            timer = new Timer { Interval = 100 };
+            Timer timer = new Timer { Interval = 100 };
             timer.Start();
             timer.Tick += Timer_Tick;
         }

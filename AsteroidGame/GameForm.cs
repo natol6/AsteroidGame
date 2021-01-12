@@ -25,8 +25,8 @@ namespace AsteroidGame
 
         private void GameForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Game.timer.Tick -= Game.Timer_Tick;
-            Game.Buffer.Dispose();
+            //Game.timer.Tick -= Game.Timer_Tick;
+            //Game.Buffer.Dispose();
             Form main = Application.OpenForms[0];
             main.StartPosition = FormStartPosition.Manual;
             main.Left = this.Left;
