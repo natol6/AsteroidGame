@@ -9,18 +9,18 @@ using AsteroidGame.Objects;
 
 namespace AsteroidGame
 {
-    static class Game
+    static class SplashScreen
     {
         private static BufferedGraphicsContext _context;
         public static BufferedGraphics Buffer;
-        public static Timer timer;
         // Свойства
         // Ширина и высота игрового поля
         public static int Width { get; set; }
         public static int Height { get; set; }
         static Random Random { get; } = new Random();
-        static Image background = Image.FromFile("Images\\fon.jpg");
-        static Game()
+        static Image background = Image.FromFile("Images\\main55.jpg");
+        static BaseObject[] _objs;
+        static SplashScreen()
         {
         }
         public static void Init(Form form)
@@ -37,11 +37,11 @@ namespace AsteroidGame
             // Связываем буфер в памяти с графическим объектом, чтобы рисовать в буфере
             Buffer = _context.Allocate(g, new Rectangle(0, 0, Width, Height));
             Load();
-            timer = new Timer { Interval = 100 };
+            Timer timer = new Timer { Interval = 100 };
             timer.Start();
             timer.Tick += Timer_Tick;
         }
-        public static void Timer_Tick(object sender, EventArgs e)
+        private static void Timer_Tick(object sender, EventArgs e)
         {
             Draw();
             Update();
@@ -53,7 +53,6 @@ namespace AsteroidGame
             foreach (BaseObject obj in _objs)
                 obj.Draw();
             Buffer.Render();
-            
 
         }
         public static void Update()
@@ -62,18 +61,14 @@ namespace AsteroidGame
                 obj.Update();
         }
 
-        public static BaseObject[] _objs;
+        //public static BaseObject[] _objs;
         public static void Load()
         {
             _objs = new BaseObject[100];
-            _objs[0] = new Comet(new Point(Game.Width, 100), new Point(-25, 0), new Size(100, 100));
-            for (int i = 1; i < 3; i++)
-                _objs[i] = new Nlo(new Point(Random.Next(10, Width - 10), Random.Next(10, Height - 10)), new Point(Random.Next(5, 15), Random.Next(5, 15)), new Size(50, 42));
-            for (int i = 3; i < _objs.Length - 3; i++)
-                _objs[i] = new Star(new Point(Random.Next(0, Width), Random.Next(0, Height)), new Point(-Random.Next(1, 20), 0), new Size(i + 1, i + 1));
-            _objs[_objs.Length - 3] = new Asteroid(new Point(Game.Width, 50), new Point(-15, 5), new Size(60, 60));
-            _objs[_objs.Length - 2] = new Asteroid(new Point(1000, 0), new Point(-20, 8), new Size(20, 20));
-            _objs[_objs.Length - 1] = new Asteroid(new Point(800, Game.Height), new Point(-15, -2), new Size(40, 40));
+            
+            for (int i = 0; i < _objs.Length; i++)
+                _objs[i] = new StarMain(new Point(Random.Next(0, Width), Random.Next(0, Height)), new Point(-Random.Next(1, 20), 0), new Size(i + 1, i + 1));
+            
         }
     }
 }
