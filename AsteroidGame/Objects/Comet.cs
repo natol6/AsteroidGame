@@ -10,19 +10,25 @@ namespace AsteroidGame.Objects
 {
     class Comet: BaseObject
     {
-        Image[] images = {
+        /*private readonly Image[] images = {
             Image.FromFile("Images\\comets\\comet-0.png"),
             Image.FromFile("Images\\comets\\comet-60.png"),
             Image.FromFile("Images\\comets\\comet-30.png"),
             Image.FromFile("Images\\comets\\comet--30.png"),
-            Image.FromFile("Images\\comets\\comet--60.png")};
-        int i = 0;
+            Image.FromFile("Images\\comets\\comet--60.png")};*/
+        private static readonly Image[] images = {
+            Properties.Resources.comet_0,
+            Properties.Resources.comet_60,
+            Properties.Resources.comet_30,
+            Properties.Resources.comet__30,
+            Properties.Resources.comet__60};
+        private int i = 0;
         public Comet(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }
         public override void Draw()
         {
-            Game.Buffer.Graphics.DrawImage(images[i], Pos.X, Pos.Y, Size.Width, Size.Height);
+            Game.__buffer.Graphics.DrawImage(images[i], Pos.X, Pos.Y, Size.Width, Size.Height);
         }
         public override void Update()
         {

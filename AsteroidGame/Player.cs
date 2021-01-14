@@ -13,20 +13,21 @@ namespace AsteroidGame
         public int Record { get; set; }
         public Player()
         {
-            this.Nik = "Инкогнито";
-            this.DateRecord = DateTime.Now;
-            this.Record = 0;
+            Nik = "Инкогнито";
+            DateRecord = DateTime.Now;
+            Record = 0;
         }
         public Player(string nik, DateTime dateRecord, int record)
         {
-            this.Nik = nik;
-            this.DateRecord = dateRecord;
-            this.Record = record;
+            Nik = nik;
+            DateRecord = dateRecord;
+            Record = record;
         }
         
-        public static bool Equals(Player p1, Player p2)
+        public bool Equals(Player p1, Player p2)
         {
-            return p1.Nik == p2.Nik && p1.DateRecord == p2.DateRecord && p1.Record == p2.Record;
+            if (p1 == null || p2 == null) return false;
+            else return p1.Nik == p2.Nik && p1.DateRecord == p2.DateRecord && p1.Record == p2.Record;
         }
         public int CompareTo(Player p)
         {

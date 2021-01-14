@@ -10,13 +10,13 @@ namespace AsteroidGame.Objects
 {
     class Star: BaseObject
     {
-        Image Image { get; } = Image.FromFile("Images\\star.png");
+        private readonly Image image = Properties.Resources.star;  //Image.FromFile("Images\\star.png");
         public Star(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }
         public override void Draw()
         {
-            Game.Buffer.Graphics.DrawImage(Image, Pos.X, Pos.Y);
+            Game.__buffer.Graphics.DrawImage(image, Pos.X, Pos.Y);
         }
         public override void Update()
         {

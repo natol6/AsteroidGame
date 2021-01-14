@@ -10,7 +10,7 @@ namespace AsteroidGame.Objects
 {
     class Asteroid: BaseObject
     {
-        Image[] images = {
+        /*private readonly Image[] images = {
             Image.FromFile("Images\\asteroids\\asteroid-0.png"),
             Image.FromFile("Images\\asteroids\\asteroid-45.png"),
             Image.FromFile("Images\\asteroids\\asteroid-90.png"),
@@ -18,14 +18,23 @@ namespace AsteroidGame.Objects
             Image.FromFile("Images\\asteroids\\asteroid-180.png"),
             Image.FromFile("Images\\asteroids\\asteroid-225.png"),
             Image.FromFile("Images\\asteroids\\asteroid-270.png"),
-            Image.FromFile("Images\\asteroids\\asteroid-315.png")};
-        int i = 0;
+            Image.FromFile("Images\\asteroids\\asteroid-315.png")};*/
+        private static readonly Image[] images = {
+            Properties.Resources.asteroid_0,
+            Properties.Resources.asteroid_45,
+            Properties.Resources.asteroid_90,
+            Properties.Resources.asteroid_135,
+            Properties.Resources.asteroid_180,
+            Properties.Resources.asteroid_225,
+            Properties.Resources.asteroid_270,
+            Properties.Resources.asteroid_315};
+        private int i = 0;
         public Asteroid(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }
         public override void Draw()
         {
-            Game.Buffer.Graphics.DrawImage(images[i], Pos.X, Pos.Y, Size.Width, Size.Height);
+            Game.__buffer.Graphics.DrawImage(images[i], Pos.X, Pos.Y, Size.Width, Size.Height);
             i++;
             if (i == 8) i -= 8;
         }
