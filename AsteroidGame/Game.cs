@@ -11,15 +11,17 @@ namespace AsteroidGame
 {
     static class Game
     {
-        private static BufferedGraphicsContext _context;
-        public static BufferedGraphics Buffer;
+        private static BufferedGraphicsContext __context;
+        internal static BufferedGraphics __buffer;
         //public static Timer timer;
         // Свойства
         // Ширина и высота игрового поля
         public static int Width { get; set; }
         public static int Height { get; set; }
-        static Random Random { get; } = new Random();
-        static Image background = Image.FromFile("Images\\fon.jpg");
+        private static Random __random { get; } = new Random();
+        private static readonly Image __background = Properties.Resources.fon1; //Image.FromFile("fon.jpg");
+        private static BaseObject[] __objs;
+        private static Timer __timer = new Timer { Interval = 100 };
         static Game()
         {
         }
@@ -28,52 +30,52 @@ namespace AsteroidGame
             // Графическое устройство для вывода графики            
             Graphics g;
             // Предоставляет доступ к главному буферу графического контекста для текущего приложения
-            _context = BufferedGraphicsManager.Current;
+            __context = BufferedGraphicsManager.Current;
             g = form.CreateGraphics();
             // Создаем объект (поверхность рисования) и связываем его с формой
             // Запоминаем размеры формы
             Width = form.ClientSize.Width;
             Height = form.ClientSize.Height;
             // Связываем буфер в памяти с графическим объектом, чтобы рисовать в буфере
-            Buffer = _context.Allocate(g, new Rectangle(0, 0, Width, Height));
+            __buffer = __context.Allocate(g, new Rectangle(0, 0, Width, Height));
             Load();
-            Timer timer = new Timer { Interval = 100 };
-            timer.Start();
-            timer.Tick += Timer_Tick;
+            __timer.Start();
+            __timer.Tick += Timer_Tick;
         }
         public static void Timer_Tick(object sender, EventArgs e)
         {
             Draw();
             Update();
         }
+        public static void Close() => __timer.Stop();
         public static void Draw()
         {
             
-            Buffer.Graphics.DrawImage(background, 0, 0);
-            foreach (BaseObject obj in _objs)
+            __buffer.Graphics.DrawImage(__background, 0, 0);
+            foreach (BaseObject obj in __objs)
                 obj.Draw();
-            Buffer.Render();
+            if(__timer.Enabled) __buffer.Render();
             
 
         }
         public static void Update()
         {
-            foreach (BaseObject obj in _objs)
+            foreach (BaseObject obj in __objs)
                 obj.Update();
         }
 
-        public static BaseObject[] _objs;
+        
         public static void Load()
         {
-            _objs = new BaseObject[100];
-            _objs[0] = new Comet(new Point(Game.Width, 100), new Point(-25, 0), new Size(100, 100));
+            __objs = new BaseObject[100];
+            __objs[0] = new Comet(new Point(Game.Width, 100), new Point(-25, 0), new Size(100, 100));
             for (int i = 1; i < 3; i++)
-                _objs[i] = new Nlo(new Point(Random.Next(10, Width - 10), Random.Next(10, Height - 10)), new Point(Random.Next(5, 15), Random.Next(5, 15)), new Size(50, 42));
-            for (int i = 3; i < _objs.Length - 3; i++)
-                _objs[i] = new Star(new Point(Random.Next(0, Width), Random.Next(0, Height)), new Point(-Random.Next(1, 20), 0), new Size(i + 1, i + 1));
-            _objs[_objs.Length - 3] = new Asteroid(new Point(Game.Width, 50), new Point(-15, 5), new Size(60, 60));
-            _objs[_objs.Length - 2] = new Asteroid(new Point(1000, 0), new Point(-20, 8), new Size(20, 20));
-            _objs[_objs.Length - 1] = new Asteroid(new Point(800, Game.Height), new Point(-15, -2), new Size(40, 40));
+                __objs[i] = new Nlo(new Point(__random.Next(10, Width - 10), __random.Next(10, Height - 10)), new Point(__random.Next(5, 15), __random.Next(5, 15)), new Size(50, 42));
+            for (int i = 3; i < __objs.Length - 3; i++)
+                __objs[i] = new Star(new Point(__random.Next(0, Width), __random.Next(0, Height)), new Point(-__random.Next(1, 20), 0), new Size(i + 1, i + 1));
+            __objs[^3] = new Asteroid(new Point(Game.Width, 50), new Point(-15, 5), new Size(60, 60));
+            __objs[^2] = new Asteroid(new Point(1000, 0), new Point(-20, 8), new Size(20, 20));
+            __objs[^1] = new Asteroid(new Point(800, Game.Height), new Point(-15, -2), new Size(40, 40));
         }
     }
 }

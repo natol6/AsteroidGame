@@ -55,6 +55,7 @@ namespace AsteroidGame
             this.Name = "GameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Игра \"Астероид\"";
+            //this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameForm_FormClosing);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameForm_FormClosing);
             this.ResumeLayout(false);
 

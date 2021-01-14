@@ -10,13 +10,13 @@ namespace AsteroidGame.Objects
 {
     class Nlo: BaseObject
     {
-        Image Image { get; } = Image.FromFile("Images\\nlo.png");
+        private readonly Image image = Properties.Resources.nlo;  //Image.FromFile("Images\\nlo.png");
         public Nlo(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }
         public override void Draw()
         {
-            Game.Buffer.Graphics.DrawImage(Image, Pos.X, Pos.Y, Size.Width, Size.Height);
+            Game.__buffer.Graphics.DrawImage(image, Pos.X, Pos.Y, Size.Width, Size.Height);
         }
         public override void Update()
         {

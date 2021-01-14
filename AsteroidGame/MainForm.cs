@@ -54,11 +54,11 @@ namespace AsteroidGame
         private void btnGame_Click(object sender, EventArgs e)
         {
             GameForm game = new GameForm();
-            game.Left = this.Left;
-            game.Top = this.Top;
+            game.Left = Left;
+            game.Top = Top;
             Game.Init(game);
             game.Show();
-            this.Hide();
+            Hide();
             
         }
 
@@ -69,7 +69,7 @@ namespace AsteroidGame
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }
