@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace AsteroidGame.Objects
 {
-    class BaseObject
+    abstract class BaseObject
     {
         protected Point Pos;
         protected Point Dir;
@@ -19,10 +19,7 @@ namespace AsteroidGame.Objects
             Dir = dir;
             Size = size;
         }
-        public virtual void Draw()
-        {
-            Game.__buffer.Graphics.DrawEllipse(Pens.White, Pos.X, Pos.Y, Size.Width, Size.Height);
-        }
+        public abstract void Draw();
         public virtual void Update()
         {
             Pos.X += Dir.X;
