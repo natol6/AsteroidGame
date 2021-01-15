@@ -10,7 +10,10 @@ namespace AsteroidGame
     static class Program
     {
         /// <summary>
-        public static Random rnd = new Random(); 
+        public static Random rnd = new Random();
+        private static int __width;
+        private static int __height;
+        
         //  The main entry point for the application.
         /// </summary>
         [STAThread]
@@ -20,10 +23,20 @@ namespace AsteroidGame
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             MainForm main = new MainForm();
-            main.Width = Screen.PrimaryScreen.Bounds.Width;
-            main.Height = Screen.PrimaryScreen.Bounds.Height;
-            Application.Run(main);
+            __width = Screen.PrimaryScreen.Bounds.Width;
+            __height = Screen.PrimaryScreen.Bounds.Height;
+            if (__width < 0 || __width > Screen.PrimaryScreen.Bounds.Width || __height < 0 || __height > Screen.PrimaryScreen.Bounds.Height)
+                throw new ArgumentOutOfRangeException("Main Form", "«аданы некорректные размеры окна при инициализации главной формы.");
+            else
+            {
+                main.Width = __width;
+                main.Height = __height;
+                Application.Run(main);
+            }
             
+            
+            
+           
         }
     }
 }
