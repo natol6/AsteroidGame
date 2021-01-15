@@ -66,7 +66,13 @@ namespace AsteroidGame
             foreach (Asteroid ast in __asteroids)
             {
                 ast.Update();
-                if (ast.Collision(__bullet)) { System.Media.SystemSounds.Hand.Play(); }
+                if (ast.Collision(__bullet)) 
+                { 
+                    System.Media.SystemSounds.Hand.Play();
+                    __bullet.GenerateNew();
+                    ast.GenerateNew();
+
+                }
             }
             __bullet.Update();   
 

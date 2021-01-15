@@ -65,5 +65,9 @@ namespace AsteroidGame.Objects
             }
 
         }
+        public override void GenerateNew()
+        {
+            Pos.X = Game.Width + Size.Width; ;
+        }
     }
 }
