@@ -29,8 +29,10 @@ namespace AsteroidGame.Objects
             Properties.Resources.asteroid_270,
             Properties.Resources.asteroid_315};
         private int i = 0;
+        public int Power { get; set; }
         public Asteroid(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
+            Power = 1;
         }
         public override void Draw()
         {
