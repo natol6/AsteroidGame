@@ -10,15 +10,6 @@ namespace AsteroidGame.Objects
 {
     class Asteroid: BaseObject
     {
-        /*private readonly Image[] images = {
-            Image.FromFile("Images\\asteroids\\asteroid-0.png"),
-            Image.FromFile("Images\\asteroids\\asteroid-45.png"),
-            Image.FromFile("Images\\asteroids\\asteroid-90.png"),
-            Image.FromFile("Images\\asteroids\\asteroid-135.png"),
-            Image.FromFile("Images\\asteroids\\asteroid-180.png"),
-            Image.FromFile("Images\\asteroids\\asteroid-225.png"),
-            Image.FromFile("Images\\asteroids\\asteroid-270.png"),
-            Image.FromFile("Images\\asteroids\\asteroid-315.png")};*/
         private static readonly Image[] images = {
             Properties.Resources.asteroid_0,
             Properties.Resources.asteroid_45,
@@ -47,7 +38,6 @@ namespace AsteroidGame.Objects
 
             if (Pos.X < -Size.Width || Pos.Y < -Size.Height || Pos.Y > Game.Height + Size.Height)
             {
-                //Random rnd = new Random();
                 Size.Width = Program.rnd.Next(20, 61);
                 Size.Height = Size.Width;
                 if (Program.rnd.Next(1, 4) == 1)

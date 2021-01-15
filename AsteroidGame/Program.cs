@@ -20,15 +20,10 @@ namespace AsteroidGame
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             MainForm main = new MainForm();
+            main.Width = Screen.PrimaryScreen.Bounds.Width;
+            main.Height = Screen.PrimaryScreen.Bounds.Height;
             Application.Run(main);
-            //Form form = new Form();
-            //form.Width = 800;
-            //form.Height = 600;
-            //Game.Init(form);
-            //SplashScreen.Init(form);
-            //form.Show();
-            //Game.Draw();
-            //Application.Run(form);
+            
         }
     }
 }

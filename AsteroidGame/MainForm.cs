@@ -54,6 +54,8 @@ namespace AsteroidGame
         private void btnGame_Click(object sender, EventArgs e)
         {
             GameForm game = new GameForm();
+            game.Height = Height;
+            game.Width = Width;
             game.Left = Left;
             game.Top = Top;
             Game.Init(game);

@@ -15,8 +15,7 @@ namespace AsteroidGame
         internal static BufferedGraphics __buffer;
         public static int Width { get; set; }
         public static int Height { get; set; }
-        //private static Random __random { get; } = new Random();
-        private static readonly Image __background = Properties.Resources.fon1; //Image.FromFile("fon.jpg");
+        private static readonly Image __background = Properties.Resources.fon1;
         private static BaseObject[] __objs;
         private static Asteroid[] __asteroids;
         private static Bullet __bullet;
@@ -50,7 +49,7 @@ namespace AsteroidGame
         public static void Draw()
         {
             
-            __buffer.Graphics.DrawImage(__background, 0, 0);
+            __buffer.Graphics.DrawImage(__background, 0, 0, Width, Height);
             foreach (BaseObject obj in __objs)
                 obj.Draw();
             foreach (Asteroid ast in __asteroids)
@@ -83,7 +82,6 @@ namespace AsteroidGame
                 __objs[i] = new Nlo(new Point(Program.rnd.Next(10, Width - 10), Program.rnd.Next(10, Height - 10)), new Point(Program.rnd.Next(5, 15), Program.rnd.Next(5, 15)), new Size(50, 42));
             for (int i = 2; i < __objs.Length; i++)
                 __objs[i] = new Star(new Point(Program.rnd.Next(0, Width), Program.rnd.Next(0, Height)), new Point(-Program.rnd.Next(1, 20), 0), new Size(i + 1, i + 1));
-            //for (int i = 0; i < __asteroids.Length; i++)
             __asteroids[0] = new Asteroid(new Point(Game.Width, 50), new Point(-15, 5), new Size(60, 60));
             __asteroids[1] = new Asteroid(new Point(1000, 0), new Point(-20, 8), new Size(20, 20));
             __asteroids[2] = new Asteroid(new Point(800, Game.Height), new Point(-15, -2), new Size(40, 40));

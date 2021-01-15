@@ -20,7 +20,6 @@ namespace AsteroidGame
         public Records()
         {
             records = new List<Player>();
-            //fileName = "Records//records.json";
         }
         /*IEnumerator<Records> IEnumerable<Records>.GetEnumerator()
         {

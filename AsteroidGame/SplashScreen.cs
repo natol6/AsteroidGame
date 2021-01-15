@@ -17,8 +17,7 @@ namespace AsteroidGame
         // Ширина и высота игрового поля
         public static int Width { get; set; }
         public static int Height { get; set; }
-        //private static Random __random { get; } = new Random();
-        private static readonly Image __background = Properties.Resources.main551;   //Image.FromFile("Images\\main55.jpg");
+        private static readonly Image __background = Properties.Resources.main5;
         private static BaseObject[] __objs;
         private static Timer __timer = new Timer { Interval = 100 };
         static SplashScreen()
@@ -32,7 +31,7 @@ namespace AsteroidGame
             __context = BufferedGraphicsManager.Current;
             g = form.CreateGraphics();
             // Создаем объект (поверхность рисования) и связываем его с формой
-            // Запоминаем размеры формы
+            // Запоминаем размеры формы, 
             Width = form.ClientSize.Width;
             Height = form.ClientSize.Height;
             // Связываем буфер в памяти с графическим объектом, чтобы рисовать в буфере
@@ -50,7 +49,7 @@ namespace AsteroidGame
         public static void Draw()
         {
             
-            __buffer.Graphics.DrawImage(__background, 0, 0);
+            __buffer.Graphics.DrawImage(__background, 0, 0, Width, Height);
             foreach (BaseObject obj in __objs)
                 obj.Draw();
             if (__timer.Enabled) __buffer.Render();

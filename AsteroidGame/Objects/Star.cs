@@ -10,7 +10,7 @@ namespace AsteroidGame.Objects
 {
     class Star: BaseObject
     {
-        private readonly Image image = Properties.Resources.star;  //Image.FromFile("Images\\star.png");
+        private readonly Image image = Properties.Resources.star;
         public Star(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }

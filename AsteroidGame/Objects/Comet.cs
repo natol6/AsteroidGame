@@ -10,12 +10,6 @@ namespace AsteroidGame.Objects
 {
     class Comet: BaseObject
     {
-        /*private readonly Image[] images = {
-            Image.FromFile("Images\\comets\\comet-0.png"),
-            Image.FromFile("Images\\comets\\comet-60.png"),
-            Image.FromFile("Images\\comets\\comet-30.png"),
-            Image.FromFile("Images\\comets\\comet--30.png"),
-            Image.FromFile("Images\\comets\\comet--60.png")};*/
         private static readonly Image[] images = {
             Properties.Resources.comet_0,
             Properties.Resources.comet_60,
@@ -37,7 +31,6 @@ namespace AsteroidGame.Objects
 
             if (Pos.X < -Size.Width || Pos.Y < -Size.Height || Pos.Y > Game.Height + Size.Height)
             {
-                //Random rnd = new Random();
                 Size.Width = Program.rnd.Next(70, 121);
                 Size.Height = Size.Width;
                 switch (Program.rnd.Next(1, 5))
