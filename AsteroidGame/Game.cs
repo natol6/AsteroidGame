@@ -13,9 +13,6 @@ namespace AsteroidGame
     {
         private static BufferedGraphicsContext __context;
         internal static BufferedGraphics __buffer;
-        //public static Timer timer;
-        // Свойства
-        // Ширина и высота игрового поля
         public static int Width { get; set; }
         public static int Height { get; set; }
         private static Random __random { get; } = new Random();
@@ -71,11 +68,12 @@ namespace AsteroidGame
             __objs[0] = new Comet(new Point(Game.Width, 100), new Point(-25, 0), new Size(100, 100));
             for (int i = 1; i < 3; i++)
                 __objs[i] = new Nlo(new Point(__random.Next(10, Width - 10), __random.Next(10, Height - 10)), new Point(__random.Next(5, 15), __random.Next(5, 15)), new Size(50, 42));
-            for (int i = 3; i < __objs.Length - 3; i++)
+            for (int i = 3; i < __objs.Length - 4; i++)
                 __objs[i] = new Star(new Point(__random.Next(0, Width), __random.Next(0, Height)), new Point(-__random.Next(1, 20), 0), new Size(i + 1, i + 1));
-            __objs[^3] = new Asteroid(new Point(Game.Width, 50), new Point(-15, 5), new Size(60, 60));
-            __objs[^2] = new Asteroid(new Point(1000, 0), new Point(-20, 8), new Size(20, 20));
-            __objs[^1] = new Asteroid(new Point(800, Game.Height), new Point(-15, -2), new Size(40, 40));
+            __objs[^4] = new Asteroid(new Point(Game.Width, 50), new Point(-15, 5), new Size(60, 60));
+            __objs[^3] = new Asteroid(new Point(1000, 0), new Point(-20, 8), new Size(20, 20));
+            __objs[^2] = new Asteroid(new Point(800, Game.Height), new Point(-15, -2), new Size(40, 40));
+            __objs[^1] = new Bullet(new Point(0, 200), new Point(5, 0), new Size(4, 1));
         }
     }
 }

@@ -17,7 +17,7 @@ namespace AsteroidGame
         // Ширина и высота игрового поля
         public static int Width { get; set; }
         public static int Height { get; set; }
-        private static Random __random { get; } = new Random();
+        //private static Random __random { get; } = new Random();
         private static readonly Image __background = Properties.Resources.main551;   //Image.FromFile("Images\\main55.jpg");
         private static BaseObject[] __objs;
         private static Timer __timer = new Timer { Interval = 100 };
@@ -67,7 +67,7 @@ namespace AsteroidGame
             __objs = new BaseObject[100];
             
             for (int i = 0; i < __objs.Length; i++)
-                __objs[i] = new StarMain(new Point(__random.Next(0, Width), __random.Next(0, Height)), new Point(-__random.Next(1, 20), 0), new Size(i + 1, i + 1));
+                __objs[i] = new StarMain(new Point(Program.rnd.Next(0, Width), Program.rnd.Next(0, Height)), new Point(-Program.rnd.Next(1, 20), 0), new Size(i + 1, i + 1));
             
         }
     }
