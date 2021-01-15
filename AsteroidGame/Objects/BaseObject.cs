@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace AsteroidGame.Objects
 {
-    abstract class BaseObject
+    abstract class BaseObject: ICollision
     {
         protected Point Pos;
         protected Point Dir;
@@ -29,5 +29,8 @@ namespace AsteroidGame.Objects
             if (Pos.Y < 0) Dir.Y = -Dir.Y;
             if (Pos.Y > Game.Height) Dir.Y = -Dir.Y;
         }
+        public bool Collision(ICollision o) => o.Rect.IntersectsWith(this.Rect);
+
+        public Rectangle Rect => new Rectangle(Pos, Size);
     }
 }
