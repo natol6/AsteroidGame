@@ -37,66 +37,66 @@ namespace AsteroidGame.Objects
 
             if (Pos.X < -Size.Width || Pos.Y < -Size.Height || Pos.Y > Game.Height + Size.Height)
             {
-                Random rnd = new Random();
-                Size.Width = rnd.Next(70, 121);
+                //Random rnd = new Random();
+                Size.Width = Program.rnd.Next(70, 121);
                 Size.Height = Size.Width;
-                switch (rnd.Next(1, 5))
+                switch (Program.rnd.Next(1, 5))
                 {
                     case 1: //-60
-                        if (rnd.Next(1, 3) == 1)
+                        if (Program.rnd.Next(1, 3) == 1)
                         {
-                            Pos.X = rnd.Next(Game.Width / 2, Game.Width) + Size.Width;
+                            Pos.X = Program.rnd.Next(Game.Width / 2, Game.Width) + Size.Width;
                             Pos.Y = 0 - Size.Height;
                         }
                         else
                         {
                             Pos.X = Game.Width + Size.Width;
-                            Pos.Y = rnd.Next(0, Game.Height / 3);
+                            Pos.Y = Program.rnd.Next(0, Game.Height / 3);
                         }
                         i = 4;
                         Dir.X = -10;
                         Dir.Y = 18;
                         break;
                     case 2: //-30
-                        if (rnd.Next(1, 3) == 1)
+                        if (Program.rnd.Next(1, 3) == 1)
                         {
-                            Pos.X = rnd.Next(Game.Width / 2, Game.Width) + Size.Width;
+                            Pos.X = Program.rnd.Next(Game.Width / 2, Game.Width) + Size.Width;
                             Pos.Y = 0 - Size.Height;
                         }
                         else
                         {
                             Pos.X = Game.Width + Size.Width;
-                            Pos.Y = rnd.Next(0, Game.Height / 3);
+                            Pos.Y = Program.rnd.Next(0, Game.Height / 3);
                         }
                         i = 3;
                         Dir.X = -18;
                         Dir.Y = 10;
                         break;
                     case 3: //30
-                        if (rnd.Next(1, 3) == 1)
+                        if (Program.rnd.Next(1, 3) == 1)
                         {
-                            Pos.X = rnd.Next(Game.Width / 2, Game.Width) + Size.Width;
+                            Pos.X = Program.rnd.Next(Game.Width / 2, Game.Width) + Size.Width;
                             Pos.Y = Game.Height + Size.Height;
                         }
                         else
                         {
                             Pos.X = Game.Width + Size.Width;
-                            Pos.Y = rnd.Next(Game.Height * 2 / 3, Game.Height);
+                            Pos.Y = Program.rnd.Next(Game.Height * 2 / 3, Game.Height);
                         }
                         i = 2;
                         Dir.X = -18;
                         Dir.Y = -10;
                         break;
                     case 4: //60
-                        if (rnd.Next(1, 3) == 1)
+                        if (Program.rnd.Next(1, 3) == 1)
                         {
-                            Pos.X = rnd.Next(Game.Width / 2, Game.Width) + Size.Width;
+                            Pos.X = Program.rnd.Next(Game.Width / 2, Game.Width) + Size.Width;
                             Pos.Y = Game.Height + Size.Height;
                         }
                         else
                         {
                             Pos.X = Game.Width + Size.Width;
-                            Pos.Y = rnd.Next(Game.Height * 2 / 3, Game.Height);
+                            Pos.Y = Program.rnd.Next(Game.Height * 2 / 3, Game.Height);
                         }
                         i = 1;
                         Dir.X = -10;
@@ -104,7 +104,7 @@ namespace AsteroidGame.Objects
                         break;
                     default:
                         Pos.X = Game.Width + Size.Width;
-                        Pos.Y = rnd.Next(120, Game.Height - 120);
+                        Pos.Y = Program.rnd.Next(120, Game.Height - 120);
                         i = 0;
                         Dir.X = -22;
                         Dir.Y = 0;

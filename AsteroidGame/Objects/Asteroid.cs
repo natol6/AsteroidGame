@@ -47,30 +47,30 @@ namespace AsteroidGame.Objects
 
             if (Pos.X < -Size.Width || Pos.Y < -Size.Height || Pos.Y > Game.Height + Size.Height)
             {
-                Random rnd = new Random();
-                Size.Width = rnd.Next(20, 61);
+                //Random rnd = new Random();
+                Size.Width = Program.rnd.Next(20, 61);
                 Size.Height = Size.Width;
-                if (rnd.Next(1, 4) == 1)
+                if (Program.rnd.Next(1, 4) == 1)
                 {
                     Pos.X = Game.Width + Size.Width;
-                    Pos.Y = rnd.Next(0, Game.Height + 1);
-                    Dir.Y = rnd.Next(-6, 6);
-                    Dir.X = rnd.Next(-25, -8);
+                    Pos.Y = Program.rnd.Next(0, Game.Height + 1);
+                    Dir.Y = Program.rnd.Next(-6, 6);
+                    Dir.X = Program.rnd.Next(-25, -8);
                 }
                 else
                 {
-                    Pos.X = rnd.Next(Game.Width / 2, Game.Width) + Size.Width;
-                    if (rnd.Next(1, 3) == 1)
+                    Pos.X = Program.rnd.Next(Game.Width / 2, Game.Width) + Size.Width;
+                    if (Program.rnd.Next(1, 3) == 1)
                     {
                         Pos.Y = Game.Height + Size.Height;
-                        Dir.Y = rnd.Next(-30, -1);
+                        Dir.Y = Program.rnd.Next(-30, -1);
                     }
                     else
                     {
                         Pos.Y = 0 - Size.Height;
-                        Dir.Y = rnd.Next(1, 30);
+                        Dir.Y = Program.rnd.Next(1, 30);
                     }
-                    Dir.X = rnd.Next(-25, -8);
+                    Dir.X = Program.rnd.Next(-25, -8);
                 }
             }
 
