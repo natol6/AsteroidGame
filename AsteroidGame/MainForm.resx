@@ -63,14 +63,14 @@
   </data>
   <assembly alias="System.Drawing.Common" name="System.Drawing.Common, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
   <data name="lblGameName.Font" type="System.Drawing.Font, System.Drawing.Common">
-    <value>Tahoma, 30pt, style=Bold, Italic</value>
+    <value>Tahoma, 48pt, style=Bold, Italic</value>
   </data>
   <assembly alias="System.Drawing.Primitives" name="System.Drawing.Primitives, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="lblGameName.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>187, 79</value>
+    <value>309, 67</value>
   </data>
   <data name="lblGameName.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>401, 48</value>
+    <value>641, 77</value>
   </data>
   <data name="lblGameName.TabIndex" type="System.Int32, System.Private.CoreLib">
     <value>0</value>
@@ -88,7 +88,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblGameName.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="btnGame.Font" type="System.Drawing.Font, System.Drawing.Common">
     <value>Verdana, 14.25pt, style=Bold, Italic</value>
@@ -115,7 +115,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnGame.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="btnRecords.Font" type="System.Drawing.Font, System.Drawing.Common">
     <value>Verdana, 14.25pt, style=Bold, Italic</value>
@@ -146,7 +146,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnRecords.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="btnExit.Font" type="System.Drawing.Font, System.Drawing.Common">
     <value>Verdana, 14.25pt, style=Bold, Italic</value>
@@ -176,13 +176,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnExit.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="textBoxNik.Font" type="System.Drawing.Font, System.Drawing.Common">
     <value>Tahoma, 14.25pt, style=Bold, Italic</value>
   </data>
   <data name="textBoxNik.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>208, 185</value>
+    <value>787, 327</value>
   </data>
   <data name="textBoxNik.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>225, 30</value>
@@ -200,7 +200,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxNik.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="btnOk.Font" type="System.Drawing.Font, System.Drawing.Common">
     <value>Verdana, 14.25pt, style=Bold, Italic</value>
@@ -209,7 +209,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnOk.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>461, 185</value>
+    <value>1046, 326</value>
   </data>
   <data name="btnOk.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>99, 30</value>
@@ -230,7 +230,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnOk.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="lblNik.AutoSize" type="System.Boolean, System.Private.CoreLib">
     <value>True</value>
@@ -242,16 +242,16 @@
     <value>NoControl</value>
   </data>
   <data name="lblNik.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>148, 150</value>
+    <value>802, 241</value>
   </data>
   <data name="lblNik.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>468, 19</value>
+    <value>318, 19</value>
   </data>
   <data name="lblNik.TabIndex" type="System.Int32, System.Private.CoreLib">
     <value>6</value>
   </data>
   <data name="lblNik.Text" xml:space="preserve">
-    <value>Авторизуйтесь для игры (введите Ваше имя или ник):</value>
+    <value>Кто сегодня управляет зведолетом?</value>
   </data>
   <data name="&gt;&gt;lblNik.Name" xml:space="preserve">
     <value>lblNik</value>
@@ -263,7 +263,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblNik.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="lbldeveloper.AutoSize" type="System.Boolean, System.Private.CoreLib">
     <value>True</value>
@@ -275,7 +275,7 @@
     <value>NoControl</value>
   </data>
   <data name="lbldeveloper.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>520, 533</value>
+    <value>29, 722</value>
   </data>
   <data name="lbldeveloper.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>252, 19</value>
@@ -296,7 +296,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbldeveloper.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, System.Private.CoreLib">
     <value>True</value>
@@ -329,6 +329,39 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lblNik2.AutoSize" type="System.Boolean, System.Private.CoreLib">
+    <value>True</value>
+  </data>
+  <data name="lblNik2.Font" type="System.Drawing.Font, System.Drawing.Common">
+    <value>Tahoma, 12pt, style=Bold, Italic</value>
+  </data>
+  <data name="lblNik2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblNik2.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>830, 291</value>
+  </data>
+  <data name="lblNik2.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>257, 19</value>
+  </data>
+  <data name="lblNik2.TabIndex" type="System.Int32, System.Private.CoreLib">
+    <value>9</value>
+  </data>
+  <data name="lblNik2.Text" xml:space="preserve">
+    <value>(введите Ваше имя или ник):</value>
+  </data>
+  <data name="&gt;&gt;lblNik2.Name" xml:space="preserve">
+    <value>lblNik2</value>
+  </data>
+  <data name="&gt;&gt;lblNik2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=5.0.1.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblNik2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblNik2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
@@ -336,9 +369,6 @@
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing.Primitives">
     <value>7, 15</value>
-  </data>
-  <data name="$this.AutoSize" type="System.Boolean, System.Private.CoreLib">
-    <value>True</value>
   </data>
   <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing.Common" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -6848,7 +6878,7 @@
     <value>Stretch</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>784, 561</value>
+    <value>1184, 661</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>

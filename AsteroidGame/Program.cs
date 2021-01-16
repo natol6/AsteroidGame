@@ -23,14 +23,15 @@ namespace AsteroidGame
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             MainForm main = new MainForm();
-            __width = Screen.PrimaryScreen.Bounds.Width;
-            __height = Screen.PrimaryScreen.Bounds.Height;
-            if (__width < 0 || __width > Screen.PrimaryScreen.Bounds.Width || __height < 0 || __height > Screen.PrimaryScreen.Bounds.Height)
+            __width = 800;
+            __height = 500;
+            if (__width < 800 || __width > Screen.PrimaryScreen.Bounds.Width || __height < 500 || __height > Screen.PrimaryScreen.Bounds.Height)
                 throw new ArgumentOutOfRangeException("Main Form", "«аданы некорректные размеры окна при инициализации главной формы.");
             else
             {
                 main.Width = __width;
                 main.Height = __height;
+                main.Begin(main.Width, main.Height);
                 Application.Run(main);
             }
             

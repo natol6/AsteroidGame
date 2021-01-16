@@ -39,6 +39,7 @@ namespace AsteroidGame
             this.lblNik = new System.Windows.Forms.Label();
             this.lbldeveloper = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblNik2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblGameName
@@ -112,10 +113,18 @@ namespace AsteroidGame
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.label1.Name = "label1";
             // 
+            // lblNik2
+            // 
+            resources.ApplyResources(this.lblNik2, "lblNik2");
+            this.lblNik2.BackColor = System.Drawing.Color.Transparent;
+            this.lblNik2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.lblNik2.Name = "lblNik2";
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblNik2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbldeveloper);
             this.Controls.Add(this.lblNik);
@@ -126,6 +135,7 @@ namespace AsteroidGame
             this.Controls.Add(this.btnGame);
             this.Controls.Add(this.lblGameName);
             this.Name = "MainForm";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -142,5 +152,6 @@ namespace AsteroidGame
         private System.Windows.Forms.Label lblNik;
         private System.Windows.Forms.Label lbldeveloper;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblNik2;
     }
 }

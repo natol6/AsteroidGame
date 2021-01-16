@@ -81,7 +81,7 @@ namespace AsteroidGame
         
         public static void Load()
         {
-            __objs = new BaseObject[100];
+            __objs = new BaseObject[150];
             __asteroids = new Asteroid[3];
             __objs[0] = new Comet(new Point(Game.Width, 100), new Point(-25, 0), new Size(100, 100));
             for (int i = 0; i < 2; i++)
