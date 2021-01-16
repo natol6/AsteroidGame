@@ -18,12 +18,6 @@ namespace AsteroidGame
         public MainForm()
         {
             InitializeComponent();
-            lblGameName.Left = this.Width / 2 - lblGameName.Size.Width / 2;
-            lblNik.Left = this.Width / 2 - lblNik.Size.Width / 2;
-            //btnGame.Hide();
-            //btnRecords.Hide();
-            //btnExit.Hide();
-            //label1.Hide();
             player = new Player();
             records = new Records();
             records.Load();
@@ -95,6 +89,7 @@ namespace AsteroidGame
             game.Width = Width;
             game.Left = Left;
             game.Top = Top;
+            game.Begin(game.Width, game.Height);
             Game.Init(game);
             game.Show();
             Hide();

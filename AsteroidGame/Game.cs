@@ -46,6 +46,7 @@ namespace AsteroidGame
             Update();
         }
         public static void Close() => __timer.Stop();
+        public static void Continue() => __timer.Start();
         public static void Draw()
         {
             

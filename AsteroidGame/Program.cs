@@ -23,10 +23,10 @@ namespace AsteroidGame
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             MainForm main = new MainForm();
-            __width = 800;
-            __height = 500;
-            if (__width < 800 || __width > Screen.PrimaryScreen.Bounds.Width || __height < 500 || __height > Screen.PrimaryScreen.Bounds.Height)
-                throw new ArgumentOutOfRangeException("Main Form", "Заданы некорректные размеры окна при инициализации главной формы.");
+            __width = 1000; // Ширину экрана можно задавать при запуске программы
+            __height = __width * 9 / 16;
+            if (__width < 800 || __width > Screen.PrimaryScreen.Bounds.Width || __height < 450 || __height > Screen.PrimaryScreen.Bounds.Height)
+                throw new ArgumentOutOfRangeException("Main Form", "Задана некорректная ширина окна при инициализации главной формы. Ширина должна быть в пределах от 800 пикс. до ширины экрана монитора.");
             else
             {
                 main.Width = __width;

@@ -31,6 +31,7 @@ namespace AsteroidGame
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
             this.btnPause = new System.Windows.Forms.Button();
+            this.btnContinue = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnPause
@@ -45,17 +46,29 @@ namespace AsteroidGame
             this.btnPause.UseVisualStyleBackColor = true;
             this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
             // 
+            // btnContinue
+            // 
+            this.btnContinue.Font = new System.Drawing.Font("Tahoma", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.btnContinue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnContinue.Location = new System.Drawing.Point(598, 522);
+            this.btnContinue.Name = "btnContinue";
+            this.btnContinue.Size = new System.Drawing.Size(71, 27);
+            this.btnContinue.TabIndex = 1;
+            this.btnContinue.Text = "Играть";
+            this.btnContinue.UseVisualStyleBackColor = true;
+            this.btnContinue.Click += new System.EventHandler(this.btnContinue_Click);
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.btnContinue);
             this.Controls.Add(this.btnPause);
             this.Name = "GameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Игра \"Астероид\"";
-            //this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameForm_FormClosing);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameForm_FormClosing);
             this.ResumeLayout(false);
 
@@ -64,5 +77,6 @@ namespace AsteroidGame
         #endregion
 
         private System.Windows.Forms.Button btnPause;
+        private System.Windows.Forms.Button btnContinue;
     }
 }
