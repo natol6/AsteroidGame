@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Personnel
 {
-    class BaseEmployee
+    abstract class BaseEmployee
     {
-        protected string Surname { get; init; }
-        protected string Name { get; init; }
-        protected string MiddleName { get; init; }
-        protected string Position { get; set; }
+        public string Surname { get; init; }
+        public string Name { get; init; }
+        public string MiddleName { get; init; }
+        public string Position { get; set; }
         public BaseEmployee(string surname, string name, string middleName, string position)
         {
             Surname = surname;
@@ -18,8 +18,8 @@ namespace Personnel
             Position = position;
         }
        
-        /*abstract public double AverageMonthlySalary();
-        protected virtual double FactorPay()
+        public abstract double AverageMonthlySalary();
+        /*protected virtual double FactorPay()
         {
             ListPosition pos = new ListPosition();
             pos.Load("position.csv");
