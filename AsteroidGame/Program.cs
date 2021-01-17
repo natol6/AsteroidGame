@@ -6,15 +6,18 @@ using System.Windows.Forms;
 
 namespace AsteroidGame
 {
-    
+
     static class Program
     {
         /// <summary>
         public static Random rnd = new Random();
         private static int __width;
         private static int __height;
+        static Program()
+        {
+        }
         
-        //  The main entry point for the application.
+        ///  The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()

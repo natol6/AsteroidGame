@@ -19,7 +19,7 @@ namespace AsteroidGame
         private static BaseObject[] __objs;
         private static Asteroid[] __asteroids;
         private static Bullet __bullet;
-        private static Timer __timer = new Timer { Interval = 100 };
+        //private static Timer __timer = new Timer { Interval = 100 };
         static Game()
         {
         }
@@ -37,16 +37,16 @@ namespace AsteroidGame
             // Связываем буфер в памяти с графическим объектом, чтобы рисовать в буфере
             __buffer = __context.Allocate(g, new Rectangle(0, 0, Width, Height));
             Load();
-            __timer.Start();
-            __timer.Tick += Timer_Tick;
+            //Program.__timer.Start();
+            //Program.__timer.Tick += Timer_Tick;
         }
         public static void Timer_Tick(object sender, EventArgs e)
         {
             Draw();
             Update();
         }
-        public static void Close() => __timer.Stop();
-        public static void Continue() => __timer.Start();
+        //public static void Close() => Program.__timer.Stop();
+        //public static void Continue() => Program.__timer.Start();
         public static void Draw()
         {
             
@@ -56,8 +56,8 @@ namespace AsteroidGame
             foreach (Asteroid ast in __asteroids)
                 ast.Draw();
             __bullet.Draw();
-            if(__timer.Enabled) __buffer.Render();
-            
+            //if(GameForm.__timer.Enabled) __buffer.Render();
+            __buffer.Render();
 
         }
         public static void Update()
