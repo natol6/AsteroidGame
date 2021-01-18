@@ -18,6 +18,7 @@ namespace AsteroidGame
             InitializeComponent();
             __timer.Start();
             __timer.Tick += Game.Timer_Tick;
+
         }
         public void Begin(int width, int heigth)
         {

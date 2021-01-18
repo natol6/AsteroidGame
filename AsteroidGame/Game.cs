@@ -19,6 +19,7 @@ namespace AsteroidGame
         private static BaseObject[] __objs;
         private static Asteroid[] __asteroids;
         private static Bullet __bullet;
+        private static Ship __ship;
         //private static Timer __timer = new Timer { Interval = 100 };
         static Game()
         {
@@ -39,11 +40,18 @@ namespace AsteroidGame
             Load();
             //Program.__timer.Start();
             //Program.__timer.Tick += Timer_Tick;
+            form.KeyDown += Form_KeyDown;
         }
         public static void Timer_Tick(object sender, EventArgs e)
         {
             Draw();
             Update();
+        }
+        private static void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.ControlKey) __bullet = new Bullet(new Point(__ship.Rect.X + 10, __ship.Rect.Y + 4), new Point(4, 0), new Size(4, 1));
+            if (e.KeyCode == Keys.Up) __ship.Up();
+            if (e.KeyCode == Keys.Down) __ship.Down();
         }
         //public static void Close() => Program.__timer.Stop();
         //public static void Continue() => Program.__timer.Start();
@@ -93,6 +101,7 @@ namespace AsteroidGame
             __asteroids[1] = new Asteroid(new Point(1000, 0), new Point(-20, 8), new Size(20, 20));
             __asteroids[2] = new Asteroid(new Point(800, Game.Height), new Point(-15, -2), new Size(40, 40));
             __bullet = new Bullet(new Point(0, 200), new Point(5, 0), new Size(4, 1));
+            __ship = new Ship(new Point(10, 400), new Point(5, 5), new Size(10, 10));
         }
     }
 }
