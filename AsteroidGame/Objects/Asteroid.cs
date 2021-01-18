@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace AsteroidGame.Objects
 {
-    class Asteroid: BaseObject
+    class Asteroid: BaseObject, ICloneable, IComparable
     {
         private static readonly Image[] images = {
             Properties.Resources.asteroid_0,
@@ -20,7 +20,8 @@ namespace AsteroidGame.Objects
             Properties.Resources.asteroid_270,
             Properties.Resources.asteroid_315};
         private int i = 0;
-        public int Power { get; set; }
+
+        public int Power { get; set; } = 3;
         public Asteroid(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
             Power = 1;
@@ -69,5 +70,25 @@ namespace AsteroidGame.Objects
         {
             Pos.X = Game.Width + Size.Width; ;
         }
+        public object Clone()
+        {
+            Asteroid asteroid = new Asteroid(new Point(Pos.X, Pos.Y), new Point(Dir.X, Dir.Y), new Size(Size.Width, Size.Height));
+            asteroid.Power = Power;
+            return asteroid;
+        }
+        int IComparable.CompareTo(object obj)
+        {
+            if (obj is Asteroid temp)
+            {
+                if (Power > temp.Power)
+                    return 1;
+                if (Power < temp.Power)
+                    return -1;
+                else
+                    return 0;
+            }
+            throw new ArgumentException("Объект не является Астероидом!");
+        }
+
     }
 }
