@@ -50,10 +50,10 @@ namespace AsteroidGame
         }
         public static void Form_KeyDown(object sender, KeyEventArgs e)
         {
-            /*if (e.KeyCode == Keys.ControlKey) __bullet = new Bullet(new Point(__ship.Rect.X + 10, __ship.Rect.Y + 4), new Point(4, 0), new Size(4, 1));
+            if (e.KeyCode == Keys.ControlKey) __bullet = new Bullet(new Point(__ship.Rect.X + 20, __ship.Rect.Y + 20), new Point(5, 0), new Size(5, 2));
             if (e.KeyCode == Keys.I) __ship.Up();
-            if (e.KeyCode == Keys.J) __ship.Down();*/
-            switch (e.KeyCode)
+            if (e.KeyCode == Keys.J) __ship.Down();
+            /*switch (e.KeyCode)
             {
                 case Keys.ControlKey:
                     __bullet = new Bullet(new Point(__ship.Rect.X + 10, __ship.Rect.Y + 4), new Point(4, 0), new Size(4, 1));
@@ -61,12 +61,14 @@ namespace AsteroidGame
 
                 case Keys.Up:
                     __ship.Up();
+                    System.Media.SystemSounds.Hand.Play();
                     break;
 
                 case Keys.Down:
                     __ship.Down();
+                    System.Media.SystemSounds.Asterisk.Play();
                     break;
-            }
+            }*/
         }
         
         public static void Draw()
@@ -89,6 +91,7 @@ namespace AsteroidGame
             foreach (BaseObject obj in __objs)
                 obj.Update();
             __bullet?.Update();
+            //__ship?.Update();
             for (var i = 0; i < __asteroids.Length; i++)
             {
                 if (__asteroids[i] == null) continue;
@@ -101,7 +104,6 @@ namespace AsteroidGame
                     continue;
                 }
                 if (!__ship.Collision(__asteroids[i])) continue;
-                //var rnd = new Random();
                 __ship?.EnergyLow(Program.rnd.Next(1, 10));
                 System.Media.SystemSounds.Asterisk.Play();
                 if (__ship.Energy <= 0) __ship?.Die();
@@ -133,9 +135,9 @@ namespace AsteroidGame
                 __asteroids[i * j] = new Asteroid(new Point(Program.rnd.Next(Width / 3, Width), Height), new Point(Program.rnd.Next(-20, -6), Program.rnd.Next(-11, -1)), new Size(40, 40));
             
             }
-                
-            __bullet = new Bullet(new Point(20, Height - 20), new Point(5, 0), new Size(4, 1));
-            __ship = new Ship(new Point(50, (int)(Height / 2)), new Point(5, 5), new Size(15, 15));
+            __ship = new Ship(new Point(30, (int)(Height / 2)), new Point(5, 5), new Size(15, 15));
+            __bullet = new Bullet(new Point(__ship.Rect.X + 20, __ship.Rect.Y + 20), new Point(5, 0), new Size(5, 2));
+            
         }
         
     }

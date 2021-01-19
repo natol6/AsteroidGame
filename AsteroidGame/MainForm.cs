@@ -91,6 +91,7 @@ namespace AsteroidGame
             game.Top = Top;
             game.Begin(game.Width, game.Height);
             Game.Init(game);
+            game.Focus();
             game.Show();
             Hide();
             

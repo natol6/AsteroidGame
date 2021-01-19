@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace AsteroidGame.Objects
 {
-    class Ship : BaseObject, ICollision
+    class Ship : BaseObject
     {
         private int _energy = 100;
         private readonly Image image = Properties.Resources.ship;
@@ -21,12 +21,14 @@ namespace AsteroidGame.Objects
         public Ship(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }
-        public override void Draw(Graphics g)
+        public override void Draw()
         {
-            Game.__buffer.Graphics.DrawImage(image, Pos.X, Pos.Y); //FillEllipse(Brushes.Wheat, Pos.X, Pos.Y, Size.Width, Size.Height);
+            Game.__buffer.Graphics.DrawImage(image, Pos.X, Pos.Y);
+            
         }
         public override void Update()
         {
+
         }
         public void Up()
         {
@@ -41,6 +43,7 @@ namespace AsteroidGame.Objects
             MessageDie?.Invoke();
 
         }
+        
 
     }
 }

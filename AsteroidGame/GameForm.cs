@@ -19,6 +19,7 @@ namespace AsteroidGame
             InitializeComponent();
             __timer.Start();
             __timer.Tick += Game.Timer_Tick;
+            KeyPreview = true;
             KeyDown += Game.Form_KeyDown;
             Ship.MessageDie += Finish;
 
