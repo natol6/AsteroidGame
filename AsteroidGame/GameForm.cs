@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AsteroidGame.Objects;
 
 namespace AsteroidGame
 {
@@ -18,6 +19,8 @@ namespace AsteroidGame
             InitializeComponent();
             __timer.Start();
             __timer.Tick += Game.Timer_Tick;
+            KeyDown += Game.Form_KeyDown;
+            Ship.MessageDie += Finish;
 
         }
         public void Begin(int width, int heigth)
@@ -30,7 +33,12 @@ namespace AsteroidGame
 
 
         }
-
+        public void Finish()
+        {
+            __timer.Stop();
+            Game.__buffer.Graphics.DrawString("The End", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Underline), Brushes.White, 200, 100);
+            Game.__buffer.Render();
+        }
         private void btnPause_Click(object sender, EventArgs e)
         {
             __timer.Stop();

@@ -38,23 +38,37 @@ namespace AsteroidGame
             // Связываем буфер в памяти с графическим объектом, чтобы рисовать в буфере
             __buffer = __context.Allocate(g, new Rectangle(0, 0, Width, Height));
             Load();
+            //Ship.MessageDie += Finish;
             //Program.__timer.Start();
             //Program.__timer.Tick += Timer_Tick;
-            form.KeyDown += Form_KeyDown;
+            //form.KeyDown += Form_KeyDown;
         }
         public static void Timer_Tick(object sender, EventArgs e)
         {
             Draw();
             Update();
         }
-        private static void Form_KeyDown(object sender, KeyEventArgs e)
+        public static void Form_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.ControlKey) __bullet = new Bullet(new Point(__ship.Rect.X + 10, __ship.Rect.Y + 4), new Point(4, 0), new Size(4, 1));
-            if (e.KeyCode == Keys.Up) __ship.Up();
-            if (e.KeyCode == Keys.Down) __ship.Down();
+            /*if (e.KeyCode == Keys.ControlKey) __bullet = new Bullet(new Point(__ship.Rect.X + 10, __ship.Rect.Y + 4), new Point(4, 0), new Size(4, 1));
+            if (e.KeyCode == Keys.I) __ship.Up();
+            if (e.KeyCode == Keys.J) __ship.Down();*/
+            switch (e.KeyCode)
+            {
+                case Keys.ControlKey:
+                    __bullet = new Bullet(new Point(__ship.Rect.X + 10, __ship.Rect.Y + 4), new Point(4, 0), new Size(4, 1));
+                    break;
+
+                case Keys.Up:
+                    __ship.Up();
+                    break;
+
+                case Keys.Down:
+                    __ship.Down();
+                    break;
+            }
         }
-        //public static void Close() => Program.__timer.Stop();
-        //public static void Continue() => Program.__timer.Start();
+        
         public static void Draw()
         {
             
@@ -62,9 +76,11 @@ namespace AsteroidGame
             foreach (BaseObject obj in __objs)
                 obj.Draw();
             foreach (Asteroid ast in __asteroids)
-                ast.Draw();
-            __bullet.Draw();
-            //if(GameForm.__timer.Enabled) __buffer.Render();
+                ast?.Draw();
+            __bullet?.Draw();
+            __ship?.Draw();
+            if (__ship != null)
+                __buffer.Graphics.DrawString("Energy:" + __ship.Energy, SystemFonts.DefaultFont, Brushes.White, 0, 0);
             __buffer.Render();
 
         }
@@ -72,36 +88,55 @@ namespace AsteroidGame
         {
             foreach (BaseObject obj in __objs)
                 obj.Update();
-            foreach (Asteroid ast in __asteroids)
+            __bullet?.Update();
+            for (var i = 0; i < __asteroids.Length; i++)
             {
-                ast.Update();
-                if (ast.Collision(__bullet)) 
-                { 
+                if (__asteroids[i] == null) continue;
+                __asteroids[i].Update();
+                if (__bullet != null && __bullet.Collision(__asteroids[i]))
+                {
                     System.Media.SystemSounds.Hand.Play();
-                    __bullet.GenerateNew();
-                    ast.GenerateNew();
-
+                    __asteroids[i] = null;
+                    __bullet = null;
+                    continue;
                 }
+                if (!__ship.Collision(__asteroids[i])) continue;
+                //var rnd = new Random();
+                __ship?.EnergyLow(Program.rnd.Next(1, 10));
+                System.Media.SystemSounds.Asterisk.Play();
+                if (__ship.Energy <= 0) __ship?.Die();
             }
-            __bullet.Update();   
+            
+               
 
         }
 
         
         public static void Load()
         {
+            int j;
             __objs = new BaseObject[150];
-            __asteroids = new Asteroid[3];
+            __asteroids = new Asteroid[10];
             __objs[0] = new Comet(new Point(Game.Width, 100), new Point(-25, 0), new Size(100, 100));
             for (int i = 0; i < 2; i++)
                 __objs[i] = new Nlo(new Point(Program.rnd.Next(10, Width - 10), Program.rnd.Next(10, Height - 10)), new Point(Program.rnd.Next(5, 15), Program.rnd.Next(5, 15)), new Size(50, 42));
             for (int i = 2; i < __objs.Length; i++)
                 __objs[i] = new Star(new Point(Program.rnd.Next(0, Width), Program.rnd.Next(0, Height)), new Point(-Program.rnd.Next(1, 20), 0), new Size(i + 1, i + 1));
             __asteroids[0] = new Asteroid(new Point(Game.Width, 50), new Point(-15, 5), new Size(60, 60));
-            __asteroids[1] = new Asteroid(new Point(1000, 0), new Point(-20, 8), new Size(20, 20));
-            __asteroids[2] = new Asteroid(new Point(800, Game.Height), new Point(-15, -2), new Size(40, 40));
-            __bullet = new Bullet(new Point(0, 200), new Point(5, 0), new Size(4, 1));
-            __ship = new Ship(new Point(10, 400), new Point(5, 5), new Size(10, 10));
+            for (int i = 1; i < __asteroids.Length / 3 + 1; i++)
+            {
+                j = 1;
+                __asteroids[i * j] = new Asteroid(new Point(Width, Program.rnd.Next(20, Height - 20)), new Point(Program.rnd.Next(-20, - 6), Program.rnd.Next(-10, 11)), new Size(60, 60));
+                j++;
+                __asteroids[i * j] = new Asteroid(new Point(Program.rnd.Next(Width / 3, Width), 0), new Point(Program.rnd.Next(-20, -6), Program.rnd.Next(1, 11)), new Size(20, 20));
+                j++;
+                __asteroids[i * j] = new Asteroid(new Point(Program.rnd.Next(Width / 3, Width), Height), new Point(Program.rnd.Next(-20, -6), Program.rnd.Next(-11, -1)), new Size(40, 40));
+            
+            }
+                
+            __bullet = new Bullet(new Point(20, Height - 20), new Point(5, 0), new Size(4, 1));
+            __ship = new Ship(new Point(50, (int)(Height / 2)), new Point(5, 5), new Size(15, 15));
         }
+        
     }
 }
