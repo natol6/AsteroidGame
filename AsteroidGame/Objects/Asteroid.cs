@@ -8,17 +8,8 @@ using System.Drawing;
 
 namespace AsteroidGame.Objects
 {
-    class Asteroid: BaseObject
+    class Asteroid: BaseObject, ICloneable, IComparable
     {
-        /*private readonly Image[] images = {
-            Image.FromFile("Images\\asteroids\\asteroid-0.png"),
-            Image.FromFile("Images\\asteroids\\asteroid-45.png"),
-            Image.FromFile("Images\\asteroids\\asteroid-90.png"),
-            Image.FromFile("Images\\asteroids\\asteroid-135.png"),
-            Image.FromFile("Images\\asteroids\\asteroid-180.png"),
-            Image.FromFile("Images\\asteroids\\asteroid-225.png"),
-            Image.FromFile("Images\\asteroids\\asteroid-270.png"),
-            Image.FromFile("Images\\asteroids\\asteroid-315.png")};*/
         private static readonly Image[] images = {
             Properties.Resources.asteroid_0,
             Properties.Resources.asteroid_45,
@@ -29,8 +20,11 @@ namespace AsteroidGame.Objects
             Properties.Resources.asteroid_270,
             Properties.Resources.asteroid_315};
         private int i = 0;
+
+        public int Power { get; set; } = 3;
         public Asteroid(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
+            Power = 1;
         }
         public override void Draw()
         {
@@ -45,33 +39,56 @@ namespace AsteroidGame.Objects
 
             if (Pos.X < -Size.Width || Pos.Y < -Size.Height || Pos.Y > Game.Height + Size.Height)
             {
-                Random rnd = new Random();
-                Size.Width = rnd.Next(20, 61);
+                Size.Width = Program.rnd.Next(20, 61);
                 Size.Height = Size.Width;
-                if (rnd.Next(1, 4) == 1)
+                if (Program.rnd.Next(1, 4) == 1)
                 {
                     Pos.X = Game.Width + Size.Width;
-                    Pos.Y = rnd.Next(0, Game.Height + 1);
-                    Dir.Y = rnd.Next(-6, 6);
-                    Dir.X = rnd.Next(-25, -8);
+                    Pos.Y = Program.rnd.Next(0, Game.Height + 1);
+                    Dir.Y = Program.rnd.Next(-6, 6);
+                    Dir.X = Program.rnd.Next(-25, -8);
                 }
                 else
                 {
-                    Pos.X = rnd.Next(Game.Width / 2, Game.Width) + Size.Width;
-                    if (rnd.Next(1, 3) == 1)
+                    Pos.X = Program.rnd.Next(Game.Width / 2, Game.Width) + Size.Width;
+                    if (Program.rnd.Next(1, 3) == 1)
                     {
                         Pos.Y = Game.Height + Size.Height;
-                        Dir.Y = rnd.Next(-30, -1);
+                        Dir.Y = Program.rnd.Next(-30, -1);
                     }
                     else
                     {
                         Pos.Y = 0 - Size.Height;
-                        Dir.Y = rnd.Next(1, 30);
+                        Dir.Y = Program.rnd.Next(1, 30);
                     }
-                    Dir.X = rnd.Next(-25, -8);
+                    Dir.X = Program.rnd.Next(-25, -8);
                 }
             }
 
         }
+        public override void GenerateNew()
+        {
+            Pos.X = Game.Width + Size.Width; ;
+        }
+        public object Clone()
+        {
+            Asteroid asteroid = new Asteroid(new Point(Pos.X, Pos.Y), new Point(Dir.X, Dir.Y), new Size(Size.Width, Size.Height));
+            asteroid.Power = Power;
+            return asteroid;
+        }
+        int IComparable.CompareTo(object obj)
+        {
+            if (obj is Asteroid temp)
+            {
+                if (Power > temp.Power)
+                    return 1;
+                if (Power < temp.Power)
+                    return -1;
+                else
+                    return 0;
+            }
+            throw new ArgumentException("Объект не является Астероидом!");
+        }
+
     }
 }

@@ -10,22 +10,20 @@ using System.Text.Json;
 
 namespace AsteroidGame
 {
-    class Records//: IEnumerable<Records>
+    class Records : IEnumerable<Player>
     {
-        private List<Player> records;
+        private List<Player> records = new List<Player>();
         private readonly string fileName = "Records//records.json";
         private readonly string title = $"{"Игрок:",20}{"Дата:",33}{"Очки:",20}\n\n";
         private readonly string currentWinner = "{0,4}.      {1,-20}   {2,15:d}   {3,10}\n";
         private readonly string currentPlayer = "{0,4}.      {1,-20}   {2,15:d}   {3,10} - Ваш результат\n";
         public Records()
         {
-            records = new List<Player>();
-            //fileName = "Records//records.json";
+           
         }
-        /*IEnumerator<Records> IEnumerable<Records>.GetEnumerator()
-        {
-            return records.GetEnumerator();
-        }*/
+        public IEnumerator<Player> GetEnumerator() => records.GetEnumerator();
+        
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         public void Add(Player p)
         {
             records.Add(p);

@@ -3,25 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Drawing;
 
 namespace AsteroidGame.Objects
 {
-    class Star: BaseObject
+    class Bullet: BaseObject
     {
-        private readonly Image image = Properties.Resources.star;
-        public Star(Point pos, Point dir, Size size) : base(pos, dir, size)
+        public Bullet(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }
         public override void Draw()
         {
-            Game.__buffer.Graphics.DrawImage(image, Pos.X, Pos.Y);
+            Game.__buffer.Graphics.DrawRectangle(Pens.OrangeRed, Pos.X, Pos.Y, Size.Width, Size.Height);
         }
         public override void Update()
         {
             Pos.X += Dir.X;
-            if (Pos.X < 0) Pos.X = Game.Width + Size.Width;
+            if (Pos.X > Game.Width) Pos.X = 0;
         }
+        /*public override void GenerateNew()
+        {
+            Pos.X = 0;
+        }*/
     }
 }

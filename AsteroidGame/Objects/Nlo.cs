@@ -10,7 +10,7 @@ namespace AsteroidGame.Objects
 {
     class Nlo: BaseObject
     {
-        private readonly Image image = Properties.Resources.nlo;  //Image.FromFile("Images\\nlo.png");
+        private readonly Image image = Properties.Resources.nlo;
         public Nlo(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }
