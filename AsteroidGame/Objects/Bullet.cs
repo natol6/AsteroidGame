@@ -21,9 +21,6 @@ namespace AsteroidGame.Objects
             Pos.X += Dir.X;
             if (Pos.X > Game.Width) Pos.X = 0;
         }
-        /*public override void GenerateNew()
-        {
-            Pos.X = 0;
-        }*/
+        
     }
 }

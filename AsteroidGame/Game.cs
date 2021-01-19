@@ -20,7 +20,6 @@ namespace AsteroidGame
         private static Asteroid[] __asteroids;
         private static Bullet __bullet;
         private static Ship __ship;
-        //private static Timer __timer = new Timer { Interval = 100 };
         static Game()
         {
         }
@@ -38,10 +37,7 @@ namespace AsteroidGame
             // Связываем буфер в памяти с графическим объектом, чтобы рисовать в буфере
             __buffer = __context.Allocate(g, new Rectangle(0, 0, Width, Height));
             Load();
-            //Ship.MessageDie += Finish;
-            //Program.__timer.Start();
-            //Program.__timer.Tick += Timer_Tick;
-            //form.KeyDown += Form_KeyDown;
+            
         }
         public static void Timer_Tick(object sender, EventArgs e)
         {
@@ -91,7 +87,6 @@ namespace AsteroidGame
             foreach (BaseObject obj in __objs)
                 obj.Update();
             __bullet?.Update();
-            //__ship?.Update();
             for (var i = 0; i < __asteroids.Length; i++)
             {
                 if (__asteroids[i] == null) continue;
@@ -120,9 +115,9 @@ namespace AsteroidGame
             __objs = new BaseObject[150];
             __asteroids = new Asteroid[10];
             __objs[0] = new Comet(new Point(Game.Width, 100), new Point(-25, 0), new Size(100, 100));
-            for (int i = 0; i < 2; i++)
+            for (int i = 1; i < 3; i++)
                 __objs[i] = new Nlo(new Point(Program.rnd.Next(10, Width - 10), Program.rnd.Next(10, Height - 10)), new Point(Program.rnd.Next(5, 15), Program.rnd.Next(5, 15)), new Size(50, 42));
-            for (int i = 2; i < __objs.Length; i++)
+            for (int i = 3; i < __objs.Length; i++)
                 __objs[i] = new Star(new Point(Program.rnd.Next(0, Width), Program.rnd.Next(0, Height)), new Point(-Program.rnd.Next(1, 20), 0), new Size(i + 1, i + 1));
             __asteroids[0] = new Asteroid(new Point(Game.Width, 50), new Point(-15, 5), new Size(60, 60));
             for (int i = 1; i < __asteroids.Length / 3 + 1; i++)
