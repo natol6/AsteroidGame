@@ -9,6 +9,7 @@ namespace AsteroidGame.Objects
 {
     class Bullet: BaseObject
     {
+        public static event Message MessageBullet;
         public Bullet(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }
@@ -19,7 +20,11 @@ namespace AsteroidGame.Objects
         public override void Update()
         {
             Pos.X += Dir.X;
-            if (Pos.X > Game.Width) Pos.X = 0;
+            //if (Pos.X > Game.Width) Pos.X = 0;
+        }
+        public void Hit()
+        {
+            MessageBullet?.Invoke();
         }
         
     }

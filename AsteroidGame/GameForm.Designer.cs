@@ -32,6 +32,8 @@ namespace AsteroidGame
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
             this.btnPause = new System.Windows.Forms.Button();
             this.btnContinue = new System.Windows.Forms.Button();
+            this.lblRecName = new System.Windows.Forms.Label();
+            this.lblRecValue = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnPause
@@ -58,12 +60,40 @@ namespace AsteroidGame
             this.btnContinue.UseVisualStyleBackColor = true;
             this.btnContinue.Click += new System.EventHandler(this.btnContinue_Click);
             // 
+            // lblRecName
+            // 
+            this.lblRecName.AutoSize = true;
+            this.lblRecName.BackColor = System.Drawing.Color.Transparent;
+            this.lblRecName.Font = new System.Drawing.Font("Tahoma", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.lblRecName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.lblRecName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblRecName.Location = new System.Drawing.Point(12, 533);
+            this.lblRecName.Name = "lblRecName";
+            this.lblRecName.Size = new System.Drawing.Size(168, 19);
+            this.lblRecName.TabIndex = 7;
+            this.lblRecName.Text = "Сбито астероидов:";
+            // 
+            // lblRecValue
+            // 
+            this.lblRecValue.AutoSize = true;
+            this.lblRecValue.BackColor = System.Drawing.Color.Transparent;
+            this.lblRecValue.Font = new System.Drawing.Font("Tahoma", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.lblRecValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.lblRecValue.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblRecValue.Location = new System.Drawing.Point(186, 533);
+            this.lblRecValue.Name = "lblRecValue";
+            this.lblRecValue.Size = new System.Drawing.Size(19, 19);
+            this.lblRecValue.TabIndex = 8;
+            this.lblRecValue.Text = "0";
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.lblRecValue);
+            this.Controls.Add(this.lblRecName);
             this.Controls.Add(this.btnContinue);
             this.Controls.Add(this.btnPause);
             this.Name = "GameForm";
@@ -71,6 +101,7 @@ namespace AsteroidGame
             this.Text = "Игра \"Астероид\"";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameForm_FormClosing);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -78,5 +109,7 @@ namespace AsteroidGame
 
         private System.Windows.Forms.Button btnPause;
         private System.Windows.Forms.Button btnContinue;
+        private System.Windows.Forms.Label lblRecName;
+        private System.Windows.Forms.Label lblRecValue;
     }
 }

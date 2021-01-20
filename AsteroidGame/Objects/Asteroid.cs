@@ -21,10 +21,10 @@ namespace AsteroidGame.Objects
             Properties.Resources.asteroid_315};
         private int i = 0;
 
-        public int Power { get; set; } = 3;
+        public int Power { get; set; }
         public Asteroid(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
-            Power = 1;
+            Power = Program.rnd.Next(1, 5);
         }
         public override void Draw()
         {

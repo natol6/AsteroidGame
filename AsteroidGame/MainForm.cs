@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AsteroidGame.Objects;
 
 namespace AsteroidGame
 {
     public partial class MainForm : Form
     {
-        Player player;
-        Records records;
+        private Player player;
+        private Records records;
         
         public MainForm()
         {
@@ -21,6 +22,7 @@ namespace AsteroidGame
             player = new Player();
             records = new Records();
             records.Load();
+            Bullet.MessageBullet += RecPlus;
         }
         public void Begin(int width, int heigth)
         {
@@ -59,6 +61,14 @@ namespace AsteroidGame
             label1.Hide();
             
         }
+        public void RecPlus() => player.Record += 1;
+        public void RecAdd(object sender, FormClosingEventArgs e) 
+        { 
+            records.Add(player);
+            records.Sort();
+            records.Save();
+        }
+        public void RecAdd() => records.Add(player);
         private void btnOk_Click(object sender, EventArgs e)
         {
             string nikName = textBoxNik.Text;
@@ -91,6 +101,12 @@ namespace AsteroidGame
             game.Top = Top;
             game.Begin(game.Width, game.Height);
             Game.Init(game);
+            game.FormClosing += RecAdd;
+            if (player.Record > 0)
+            {
+                player.Record = 0;
+                player.DateRecord = DateTime.Now;
+            }
             game.Focus();
             game.Show();
             Hide();

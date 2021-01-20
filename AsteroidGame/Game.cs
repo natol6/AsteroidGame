@@ -94,12 +94,14 @@ namespace AsteroidGame
                 if (__bullet != null && __bullet.Collision(__asteroids[i]))
                 {
                     System.Media.SystemSounds.Hand.Play();
+                    __bullet.Hit();
                     __asteroids[i] = null;
                     __bullet = null;
+
                     continue;
                 }
                 if (!__ship.Collision(__asteroids[i])) continue;
-                __ship?.EnergyLow(Program.rnd.Next(1, 10));
+                __ship?.EnergyLow(__asteroids[i].Power);
                 System.Media.SystemSounds.Asterisk.Play();
                 if (__ship.Energy <= 0) __ship?.Die();
             }
