@@ -8,11 +8,13 @@ using System.Drawing;
 
 namespace AsteroidGame.Objects
 {
+    public delegate void Message();
     abstract class BaseObject: ICollision
     {
         protected Point Pos;
         protected Point Dir;
         protected Size Size;
+        public bool Enabled { get; set; } = true;
         public BaseObject(Point pos, Point dir, Size size)
         {
             Pos = pos;

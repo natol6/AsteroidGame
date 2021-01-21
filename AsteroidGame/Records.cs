@@ -14,9 +14,9 @@ namespace AsteroidGame
     {
         private List<Player> records = new List<Player>();
         private readonly string fileName = "Records//records.json";
-        private readonly string title = $"{"Игрок:",20}{"Дата:",33}{"Очки:",20}\n\n";
-        private readonly string currentWinner = "{0,4}.      {1,-20}   {2,15:d}   {3,10}\n";
-        private readonly string currentPlayer = "{0,4}.      {1,-20}   {2,15:d}   {3,10} - Ваш результат\n";
+        private readonly string title = $"{"Игрок:",20}{"Дата:",33}{"Время:",20}{"Очки:",20}\n\n";
+        private readonly string currentWinner = "{0,4}. {1,-30}{2,-15:d}{2,-15:HH:mm}   {3,10}\n";
+        private readonly string currentPlayer = "{0,4}. {1,-30}{2,-15:d}{2,-15:HH:mm}   {3,10} - Ваш результат\n";
         public Records()
         {
            

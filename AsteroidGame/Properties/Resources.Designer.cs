@@ -63,6 +63,16 @@ namespace AsteroidGame.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap apt22 {
+            get {
+                object obj = ResourceManager.GetObject("apt22", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap asteroid_0 {
             get {
                 object obj = ResourceManager.GetObject("asteroid_0", resourceCulture);

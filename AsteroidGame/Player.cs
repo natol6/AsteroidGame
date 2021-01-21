@@ -32,9 +32,9 @@ namespace AsteroidGame
         public int CompareTo(Player p)
         {
             if (this.Record > p.Record)
-                return 1;
-            if (this.Record < p.Record)
                 return -1;
+            if (this.Record < p.Record)
+                return 1;
             else
                 return 0;
         }
