@@ -13,6 +13,7 @@ namespace AsteroidGame.Objects
         private readonly Image image = Properties.Resources.ship;
         public int Energy => _energy;
         public static event Message MessageDie;
+        public static event Message MessageEn;
 
         public void EnergyLow(int n)
         {
@@ -43,7 +44,12 @@ namespace AsteroidGame.Objects
             MessageDie?.Invoke();
 
         }
-        
+        public void Rob()
+        {
+            MessageEn?.Invoke();
+
+        }
+
 
     }
 }

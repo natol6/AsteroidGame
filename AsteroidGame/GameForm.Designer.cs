@@ -34,6 +34,8 @@ namespace AsteroidGame
             this.btnContinue = new System.Windows.Forms.Button();
             this.lblRecName = new System.Windows.Forms.Label();
             this.lblRecValue = new System.Windows.Forms.Label();
+            this.lblEnergyName = new System.Windows.Forms.Label();
+            this.lblEnergyValue = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnPause
@@ -86,12 +88,40 @@ namespace AsteroidGame
             this.lblRecValue.TabIndex = 8;
             this.lblRecValue.Text = "0";
             // 
+            // lblEnergyName
+            // 
+            this.lblEnergyName.AutoSize = true;
+            this.lblEnergyName.BackColor = System.Drawing.Color.Transparent;
+            this.lblEnergyName.Font = new System.Drawing.Font("Tahoma", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.lblEnergyName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblEnergyName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblEnergyName.Location = new System.Drawing.Point(225, 533);
+            this.lblEnergyName.Name = "lblEnergyName";
+            this.lblEnergyName.Size = new System.Drawing.Size(268, 19);
+            this.lblEnergyName.TabIndex = 9;
+            this.lblEnergyName.Text = "Запас прочности корабля (%):";
+            // 
+            // lblEnergyValue
+            // 
+            this.lblEnergyValue.AutoSize = true;
+            this.lblEnergyValue.BackColor = System.Drawing.Color.Transparent;
+            this.lblEnergyValue.Font = new System.Drawing.Font("Tahoma", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.lblEnergyValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblEnergyValue.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblEnergyValue.Location = new System.Drawing.Point(499, 533);
+            this.lblEnergyValue.Name = "lblEnergyValue";
+            this.lblEnergyValue.Size = new System.Drawing.Size(39, 19);
+            this.lblEnergyValue.TabIndex = 10;
+            this.lblEnergyValue.Text = "100";
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.lblEnergyValue);
+            this.Controls.Add(this.lblEnergyName);
             this.Controls.Add(this.lblRecValue);
             this.Controls.Add(this.lblRecName);
             this.Controls.Add(this.btnContinue);
@@ -111,5 +141,7 @@ namespace AsteroidGame
         private System.Windows.Forms.Button btnContinue;
         private System.Windows.Forms.Label lblRecName;
         private System.Windows.Forms.Label lblRecValue;
+        private System.Windows.Forms.Label lblEnergyName;
+        private System.Windows.Forms.Label lblEnergyValue;
     }
 }

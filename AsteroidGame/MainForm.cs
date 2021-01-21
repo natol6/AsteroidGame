@@ -15,7 +15,7 @@ namespace AsteroidGame
     {
         private Player player;
         private Records records;
-        
+           
         public MainForm()
         {
             InitializeComponent();
@@ -23,6 +23,7 @@ namespace AsteroidGame
             records = new Records();
             records.Load();
             Bullet.MessageBullet += RecPlus;
+            FormClosing += RecSave;
         }
         public void Begin(int width, int heigth)
         {
@@ -66,9 +67,16 @@ namespace AsteroidGame
         { 
             records.Add(player);
             records.Sort();
-            records.Save();
+            
         }
-        public void RecAdd() => records.Add(player);
+        public void RecSave(object sender, FormClosingEventArgs e) 
+        { 
+            while (records.Count > 10)
+            {
+                records.Remove(records.Count - 1);
+            }
+        }
+        public string Nik() => player.Nik;
         private void btnOk_Click(object sender, EventArgs e)
         {
             string nikName = textBoxNik.Text;

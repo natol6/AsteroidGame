@@ -77,8 +77,8 @@ namespace AsteroidGame
                 ast?.Draw();
             __bullet?.Draw();
             __ship?.Draw();
-            if (__ship != null)
-                __buffer.Graphics.DrawString("Energy:" + __ship.Energy, SystemFonts.DefaultFont, Brushes.White, 0, 0);
+            MainForm mf = Application.OpenForms[0] as MainForm;
+            __buffer.Graphics.DrawString("Пилот: " + mf.Nik(), SystemFonts.DefaultFont, Brushes.Orange, 0, 0);
             __buffer.Render();
 
         }
@@ -102,6 +102,7 @@ namespace AsteroidGame
                 }
                 if (!__ship.Collision(__asteroids[i])) continue;
                 __ship?.EnergyLow(__asteroids[i].Power);
+                __ship?.Rob();
                 System.Media.SystemSounds.Asterisk.Play();
                 if (__ship.Energy <= 0) __ship?.Die();
             }
@@ -109,7 +110,7 @@ namespace AsteroidGame
                
 
         }
-
+        public static int EnergyShip() => __ship.Energy;
         
         public static void Load()
         {
