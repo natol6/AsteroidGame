@@ -9,15 +9,15 @@ namespace AsteroidGame.Objects
 {
     class Ship : BaseObject
     {
-        private int _energy = 100;
         private readonly Image image = Properties.Resources.ship;
-        public int Energy => _energy;
+        public int Energy { get; set; } = 100;
         public static event Message MessageDie;
         public static event Message MessageEn;
+        public static event Message MessageEnPlus;
 
         public void EnergyLow(int n)
         {
-            _energy -= n;
+            Energy -= n;
         }
         public Ship(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
@@ -44,11 +44,8 @@ namespace AsteroidGame.Objects
             MessageDie?.Invoke();
 
         }
-        public void Rob()
-        {
-            MessageEn?.Invoke();
-
-        }
+        public void Rob() => MessageEn?.Invoke();
+        public void EnPlus() => MessageEnPlus?.Invoke();
 
 
     }

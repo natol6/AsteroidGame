@@ -70,10 +70,12 @@ namespace AsteroidGame
             
         }
         public void RecSave(object sender, FormClosingEventArgs e) 
-        { 
-            while (records.Count > 10)
+        {
+            int i = records.Count;
+            while (i > 10)
             {
-                records.Remove(records.Count - 1);
+                records.Remove(i - 1);
+                i--;
             }
         }
         public string Nik() => player.Nik;

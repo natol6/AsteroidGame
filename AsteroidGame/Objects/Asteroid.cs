@@ -24,7 +24,7 @@ namespace AsteroidGame.Objects
         public int Power { get; set; }
         public Asteroid(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
-            Power = Program.rnd.Next(1, 5);
+            Power = Program.rnd.Next(3, 10);
         }
         public override void Draw()
         {

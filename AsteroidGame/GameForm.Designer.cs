@@ -93,7 +93,7 @@ namespace AsteroidGame
             this.lblEnergyName.AutoSize = true;
             this.lblEnergyName.BackColor = System.Drawing.Color.Transparent;
             this.lblEnergyName.Font = new System.Drawing.Font("Tahoma", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.lblEnergyName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblEnergyName.ForeColor = System.Drawing.Color.Lime;
             this.lblEnergyName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lblEnergyName.Location = new System.Drawing.Point(225, 533);
             this.lblEnergyName.Name = "lblEnergyName";
@@ -130,6 +130,7 @@ namespace AsteroidGame
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Игра \"Астероид\"";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameForm_FormClosing);
+            this.Load += new System.EventHandler(this.GameForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

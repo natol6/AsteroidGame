@@ -24,6 +24,7 @@ namespace AsteroidGame
             KeyDown += Game.Form_KeyDown;
             Ship.MessageDie += Finish;
             Ship.MessageEn += EnergyRob;
+            Ship.MessageEnPlus += EnergyPlus;
             Bullet.MessageBullet += RecordPlus;
             
             
@@ -76,6 +77,21 @@ namespace AsteroidGame
                 lblEnergyValue.ForeColor = Color.Yellow;
             }
         }
+        public void EnergyPlus()
+        {
+            int en = Game.EnergyShip();
+            lblEnergyValue.Text = "" + en;
+            if (en > 60)
+            {
+                lblEnergyName.ForeColor = Color.Lime;
+                lblEnergyValue.ForeColor = Color.Lime;
+            }
+            else if (en < 20)
+            {
+                lblEnergyName.ForeColor = Color.Yellow;
+                lblEnergyValue.ForeColor = Color.Yellow;
+            }
+        }
         private void btnPause_Click(object sender, EventArgs e)
         {
             __timer.Stop();
@@ -101,6 +117,11 @@ namespace AsteroidGame
             btnPause.Show();
             btnContinue.Hide();
             
+        }
+
+        private void GameForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
