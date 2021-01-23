@@ -53,6 +53,7 @@ namespace AsteroidGame
             Draw();
             Update();
         }
+        
         public static void TimerRep_Tick(object sender, EventArgs e)
         {
             if (__repair == null || !__repair.Enabled) __repair = new Repair(new Point(Width, Program.rnd.Next(20, Height - 20)), new Point(-10, 0), new Size(20, 20));
@@ -66,17 +67,12 @@ namespace AsteroidGame
                 {
                     if (!__bullets[i].Enabled)
                     {
-                        __bullets[i] = new Bullet(new Point(__ship.Rect.X + 20, __ship.Rect.Y + 20), new Point(5, 0), new Size(5, 2));
+                        __bullets[i] = new Bullet(new Point(__ship.Rect.X + 20, __ship.Rect.Y + 20), new Point(10, 0), new Size(5, 2));
                         __bullets[i].Enabled = true;
                         break;
                     }
                 }
-                /*int i = __bullets.FindIndex(.Enabled = false);
-                if (i >= 0) 
-                {
-                    __bullets[i] = new Bullet(new Point(__ship.Rect.X + 20, __ship.Rect.Y + 20), new Point(5, 0), new Size(5, 2));
-                    __bullets[i].Enabled = true; 
-                }*/
+                
             }
             if (e.KeyCode == Keys.I) __ship.Up();
             if (e.KeyCode == Keys.J) __ship.Down();
@@ -84,18 +80,8 @@ namespace AsteroidGame
         }
         public static void DrawBegin()
         {
-
-            __buffer.Graphics.DrawImage(__background, 0, 0, Width, Height);
-            foreach (BaseObject obj in __objs)
-                if (obj.Enabled) obj.Draw();
-            foreach (Asteroid ast in __asteroids)
-                if (ast.Enabled) ast.Draw();
-            foreach (Bullet bullet in __bullets)
-                if (bullet.Enabled) bullet.Draw();
-            if (__ship.Enabled) __ship.Draw();
-            if (__repair.Enabled) __repair.Draw();
-            MainForm mf = Application.OpenForms[0] as MainForm;
-            __buffer.Graphics.DrawString("Пилот: " + mf.Nik(), SystemFonts.DefaultFont, Brushes.Orange, 0, 0);
+            
+            __buffer.Graphics.DrawString("Уровень " + __level + ".", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Italic), Brushes.Green, 200, 100);
             __buffer.Render();
 
         }
@@ -112,7 +98,7 @@ namespace AsteroidGame
             if (__ship.Enabled) __ship.Draw();
             if (__repair.Enabled) __repair.Draw();
             MainForm mf = Application.OpenForms[0] as MainForm;
-            __buffer.Graphics.DrawString("Пилот: " + mf.Nik(), SystemFonts.DefaultFont, Brushes.Orange, 0, 0);
+            __buffer.Graphics.DrawString("Пилот: " + mf.Nik(), new Font(FontFamily.GenericSansSerif, 15, FontStyle.Bold), Brushes.Orange, 0, 0); // SystemFonts.DefaultFont, Brushes.Orange, 0, 0);
             __buffer.Render();
 
         }
@@ -168,6 +154,7 @@ namespace AsteroidGame
                 __objs[i] = new Nlo(new Point(Program.rnd.Next(10, Width - 10), Program.rnd.Next(10, Height - 10)), new Point(Program.rnd.Next(5, 15), Program.rnd.Next(5, 15)), new Size(50, 42));
             for (int i = 3; i < __objs.Length; i++)
                 __objs[i] = new Star(new Point(Program.rnd.Next(0, Width), Program.rnd.Next(0, Height)), new Point(-Program.rnd.Next(1, 20), 0), new Size(i + 1, i + 1));
+            __asteroids.Clear();
             for (int i = 0; i < __asteroidQuantity; i++)
             {
                 switch (Program.rnd.Next(1, 4))
@@ -188,6 +175,7 @@ namespace AsteroidGame
             
             }
             __ship = new Ship(new Point(30, (int)(Height / 2)), new Point(5, 5), new Size(15, 15));
+            __bullets.Clear();
             for(int i = 0; i < 20; i++)
             {
                 __bullets.Add(new Bullet(new Point(__ship.Rect.X + 20, __ship.Rect.Y + 20), new Point(5, 0), new Size(5, 2)));

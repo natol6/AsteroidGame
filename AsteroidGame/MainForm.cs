@@ -110,8 +110,9 @@ namespace AsteroidGame
             game.Width = Width;
             game.Left = Left;
             game.Top = Top;
-            game.Begin(game.Width, game.Height);
+            game.BeginForm(game.Width, game.Height);
             Game.Init(game);
+            game.BeginGame();
             game.FormClosing += RecAdd;
             if (player.Record > 0)
             {

@@ -9,29 +9,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AsteroidGame.Objects;
 
+
 namespace AsteroidGame
 {
     public partial class GameForm : Form
     {
         private Timer __timer = new Timer();
-        private static int __record = 0;
+        private Timer __timerLevel = new Timer();
+        private int __record = 0;
         public GameForm()
         {
             InitializeComponent();
-            __timer.Start();
-            __timer.Tick += Game.Timer_Tick;
-            KeyPreview = true;
-            KeyDown += Game.Form_KeyDown;
-            Ship.MessageDie += Finish;
-            Ship.MessageEn += EnergyRob;
-            Ship.MessageEnPlus += EnergyPlus;
-            Bullet.MessageBullet += RecordPlus;
-            Asteroid.AsteroidDel += AstNew;
             
-            
-
         }
-        public void Begin(int width, int heigth)
+        public void BeginForm(int width, int heigth)
         {
             btnContinue.Left = width - btnContinue.Size.Width - (int)(btnContinue.Size.Height * 2);
             btnContinue.Top = heigth - (int)(btnContinue.Size.Height * 3.5);
@@ -46,11 +37,29 @@ namespace AsteroidGame
             lblRecValue.Left = lblRecName.Left + lblRecName.Size.Width + 10;
             lblRecValue.Top = lblRecName.Top;
             lblEnergyName.Font = font;
-            lblEnergyName.Left = lblRecValue.Left + lblRecValue.Size.Width + 10;
+            lblEnergyName.Left = lblRecValue.Left + lblRecValue.Size.Width + 30;
             lblEnergyName.Top = lblRecName.Top;
             lblEnergyValue.Font = font;
             lblEnergyValue.Left = lblEnergyName.Left + lblEnergyName.Size.Width + 10;
             lblEnergyValue.Top = lblRecName.Top;
+        }
+        public void BeginGame()
+        {
+            
+            __timer.Interval = 100;
+            __timerLevel.Interval = 3000;
+            __timer.Tick += Game.Timer_Tick;
+            __timerLevel.Tick += GameOpen;
+            KeyPreview = true;
+            KeyDown += Game.Form_KeyDown;
+            Ship.MessageDie += Finish;
+            Ship.MessageEn += EnergyRob;
+            Ship.MessageEnPlus += EnergyPlus;
+            Bullet.MessageBullet += RecordPlus;
+            Asteroid.AsteroidDel += AstNew;
+            Game.Draw();
+            Game.DrawBegin();
+            __timerLevel.Start();
         }
         public void Finish()
         {
@@ -58,12 +67,7 @@ namespace AsteroidGame
             Game.__buffer.Graphics.DrawString("Ваш корабль разрушен!\n\nИгра окончена.", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Underline), Brushes.OrangeRed, 200, 100);
             Game.__buffer.Render();
         }
-        public void LevelNew()
-        {
-            __timer.Stop();
-            Game.__buffer.Graphics.DrawString("Ваш корабль разрушен!\n\nИгра окончена.", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Underline), Brushes.OrangeRed, 200, 100);
-            Game.__buffer.Render();
-        }
+        
         public void RecordPlus() 
         { 
             __record++;
@@ -105,8 +109,15 @@ namespace AsteroidGame
             {
                 __timer.Stop();
                 Game.AstUpdate();
-                __timer.Start();
+                Game.DrawBegin();
+                __timerLevel.Start();
+                
             }
+        }
+        public void GameOpen(object sender, EventArgs e)
+        {
+            __timerLevel.Stop();
+            __timer.Start();
         }
         private void btnPause_Click(object sender, EventArgs e)
         {

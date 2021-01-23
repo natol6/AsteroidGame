@@ -26,7 +26,7 @@ namespace AsteroidGame
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         public void Add(Player p)
         {
-            records.Add(p);
+            records.Add(new Player(p.Nik, p.DateRecord, p.Record));
         }
         public void Remove(int index)
         {

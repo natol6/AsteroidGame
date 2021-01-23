@@ -24,10 +24,10 @@ namespace AsteroidGame
             Record = record;
         }
         
-        public bool Equals(Player p1, Player p2)
+        public bool Equals(Player p)
         {
-            if (p1 == null || p2 == null) return false;
-            else return p1.Nik == p2.Nik && p1.DateRecord == p2.DateRecord && p1.Record == p2.Record;
+            if (this == null || p == null) return false;
+            else return Nik == p.Nik && DateRecord == p.DateRecord && Record == p.Record;
         }
         public int CompareTo(Player p)
         {
