@@ -18,7 +18,7 @@ namespace AsteroidGame
         private static readonly Image __background = Properties.Resources.fon1;
         private static BaseObject[] __objs;
         private static Asteroid[] __asteroids;
-        private static Bullet __bullet;
+        private static List<Bullet> __bullets = new List<Bullet>();
         private static Ship __ship;
         private static Repair __repair;
         private static Timer __timerRep = new Timer();
@@ -55,7 +55,24 @@ namespace AsteroidGame
         }
         public static void Form_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.ControlKey) __bullet = new Bullet(new Point(__ship.Rect.X + 20, __ship.Rect.Y + 20), new Point(5, 0), new Size(5, 2));
+            if (e.KeyCode == Keys.ControlKey)
+            {
+                for (int i = 0; i < __bullets.Count; i++)
+                {
+                    if (!__bullets[i].Enabled)
+                    {
+                        __bullets[i] = new Bullet(new Point(__ship.Rect.X + 20, __ship.Rect.Y + 20), new Point(5, 0), new Size(5, 2));
+                        __bullets[i].Enabled = true;
+                        break;
+                    }
+                }
+                /*int i = __bullets.FindIndex(.Enabled = false);
+                if (i >= 0) 
+                {
+                    __bullets[i] = new Bullet(new Point(__ship.Rect.X + 20, __ship.Rect.Y + 20), new Point(5, 0), new Size(5, 2));
+                    __bullets[i].Enabled = true; 
+                }*/
+            }
             if (e.KeyCode == Keys.I) __ship.Up();
             if (e.KeyCode == Keys.J) __ship.Down();
             
@@ -69,7 +86,8 @@ namespace AsteroidGame
                 if (obj.Enabled) obj.Draw();
             foreach (Asteroid ast in __asteroids)
                 if(ast.Enabled) ast.Draw();
-            if (__bullet.Enabled) __bullet.Draw();
+            foreach (Bullet bullet in __bullets)
+                if (bullet.Enabled) bullet.Draw();
             if (__ship.Enabled) __ship.Draw();
             if (__repair.Enabled) __repair.Draw();
             MainForm mf = Application.OpenForms[0] as MainForm;
@@ -81,8 +99,9 @@ namespace AsteroidGame
         {
             foreach (BaseObject obj in __objs)
                 if (obj != null && obj.Enabled) obj.Update();
-            if (__bullet != null && __bullet.Enabled) __bullet.Update();
-            if (__repair != null && __repair.Enabled) __repair.Update();
+            foreach(Bullet bullet in __bullets)
+                if (bullet.Enabled) bullet.Update();
+            if (__repair.Enabled) __repair.Update();
             if (__ship.Enabled && __repair.Enabled && __ship.Collision(__repair))
             {
                 System.Media.SystemSounds.Beep.Play();
@@ -91,16 +110,17 @@ namespace AsteroidGame
                 else __ship.Energy = 100;
                 __ship.EnPlus();
             }
-            for (var i = 0; i < __asteroids.Length; i++)
+            /*for (var i = 0; i < __asteroids.Length; i++)
             {
                 if (!__asteroids[i].Enabled) continue;
                 __asteroids[i].Update();
-                if (__bullet.Enabled && __bullet.Collision(__asteroids[i]))
+                for (int j = 0; __bullets.Count; j++)
+                if (__bullets[j].Enabled && __asteroids[i].Enabled && __bullets[j].Collision(__asteroids[i]))
                 {
                     System.Media.SystemSounds.Hand.Play();
-                    __bullet.Hit();
                     __asteroids[i].Enabled = false;
-                    __bullet.Enabled = false;
+                    __bullets[j].Enabled = false;
+                    __bullets[j].Hit();
 
                     continue;
                 }
@@ -109,9 +129,30 @@ namespace AsteroidGame
                 __ship.Rob();
                 System.Media.SystemSounds.Asterisk.Play();
                 if (__ship.Energy <= 0) __ship.Die();
+            }*/
+            foreach (Asteroid ast in __asteroids)
+            {
+                if (!ast.Enabled) continue;
+                ast.Update();
+                foreach (Bullet bul in __bullets)
+                    if (bul.Enabled && ast.Enabled && bul.Collision(ast))
+                    {
+                        System.Media.SystemSounds.Hand.Play();
+                        ast.Enabled = false;
+                        bul.Enabled = false;
+                        bul.Hit();
+
+                        continue;
+                    }
+                if (__ship.Enabled && ast.Enabled && __ship.Collision(ast))
+                {
+                    __ship.EnergyLow(ast.Power);
+                    __ship.Rob();
+                    System.Media.SystemSounds.Asterisk.Play();
+                    if (__ship.Energy <= 0) __ship.Die();
+                }
             }
-            
-               
+
 
         }
         public static int EnergyShip() => __ship.Energy;
@@ -145,7 +186,12 @@ namespace AsteroidGame
             
             }
             __ship = new Ship(new Point(30, (int)(Height / 2)), new Point(5, 5), new Size(15, 15));
-            __bullet = new Bullet(new Point(__ship.Rect.X + 20, __ship.Rect.Y + 20), new Point(5, 0), new Size(5, 2));
+            for(int i = 0; i < 20; i++)
+            {
+                __bullets.Add(new Bullet(new Point(__ship.Rect.X + 20, __ship.Rect.Y + 20), new Point(5, 0), new Size(5, 2)));
+            }
+            //__bullet = new Bullet(new Point(__ship.Rect.X + 20, __ship.Rect.Y + 20), new Point(5, 0), new Size(5, 2));
+            
             __repair = new Repair(new Point(Width, Program.rnd.Next(20, Height - 20)), new Point(-10, 0), new Size(20, 20));
             __repair.Enabled = false;
             
