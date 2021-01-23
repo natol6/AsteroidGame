@@ -25,6 +25,7 @@ namespace AsteroidGame.Objects
         }
         public void Hit()
         {
+            Enabled = false;
             MessageBullet?.Invoke();
         }
         

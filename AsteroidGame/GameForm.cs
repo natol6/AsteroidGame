@@ -26,6 +26,7 @@ namespace AsteroidGame
             Ship.MessageEn += EnergyRob;
             Ship.MessageEnPlus += EnergyPlus;
             Bullet.MessageBullet += RecordPlus;
+            Asteroid.AsteroidDel += AstNew;
             
             
 
@@ -54,7 +55,13 @@ namespace AsteroidGame
         public void Finish()
         {
             __timer.Stop();
-            Game.__buffer.Graphics.DrawString("The End", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Underline), Brushes.White, 200, 100);
+            Game.__buffer.Graphics.DrawString("Ваш корабль разрушен!\n\nИгра окончена.", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Underline), Brushes.OrangeRed, 200, 100);
+            Game.__buffer.Render();
+        }
+        public void LevelNew()
+        {
+            __timer.Stop();
+            Game.__buffer.Graphics.DrawString("Ваш корабль разрушен!\n\nИгра окончена.", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Underline), Brushes.OrangeRed, 200, 100);
             Game.__buffer.Render();
         }
         public void RecordPlus() 
@@ -90,6 +97,15 @@ namespace AsteroidGame
             {
                 lblEnergyName.ForeColor = Color.Yellow;
                 lblEnergyValue.ForeColor = Color.Yellow;
+            }
+        }
+        public void AstNew()
+        {
+            if (Game.AstDel())
+            {
+                __timer.Stop();
+                Game.AstUpdate();
+                __timer.Start();
             }
         }
         private void btnPause_Click(object sender, EventArgs e)

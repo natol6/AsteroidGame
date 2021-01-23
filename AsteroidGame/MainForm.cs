@@ -77,6 +77,7 @@ namespace AsteroidGame
                 records.Remove(i - 1);
                 i--;
             }
+            records.Save();
         }
         public string Nik() => player.Nik;
         private void btnOk_Click(object sender, EventArgs e)
