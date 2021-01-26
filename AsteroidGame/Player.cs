@@ -26,7 +26,7 @@ namespace AsteroidGame
         
         public bool Equals(Player p)
         {
-            if (this == null || p == null) return false;
+            if (p == null) return false;
             else return Nik == p.Nik && DateRecord == p.DateRecord && Record == p.Record;
         }
         public int CompareTo(Player p)
