@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 
 namespace Company
 {
-    class Position
+    class TypeOfPosition
     {
         public int Id { get; init; }
         public string Title { get; init; }
-        public int TypeOfPositionId { get; set; }
 
-        public Position(int id, string title, int typeOfPosition)
+        public TypeOfPosition(int id, string title)
         {
             Id = id;
             Title = title;
-            TypeOfPositionId = typeOfPosition;
+
         }
     }
 }

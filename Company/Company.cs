@@ -12,17 +12,22 @@ namespace Company
         private EmployeeList employees;
         private PositionList positions;
         private DepatmentList depatments;
+        private TypeOfPositionList typeOfPositions;
         public Company(string title)
         {
             Title = title;
             employees = new EmployeeList(title);
             positions = new PositionList(title);
+            depatments = new DepatmentList(title);
+            typeOfPositions = new TypeOfPositionList(title);
         }
         public Company()
         {
             Title = "Example";
             employees = new EmployeeList(Title);
             positions = new PositionList(Title);
+            depatments = new DepatmentList(Title);
+            typeOfPositions = new TypeOfPositionList(Title);
         }
         
         public void Save()
@@ -30,6 +35,7 @@ namespace Company
             employees.Save();
             positions.Save();
             depatments.Save();
+            typeOfPositions.Save();
 
         }
         public void Load()
@@ -37,6 +43,7 @@ namespace Company
             employees.Load(Title);
             positions.Load(Title);
             depatments.Load(Title);
+            typeOfPositions.Load(Title);
         }
         public void Add_Employee(Employee empl)
         {
@@ -50,6 +57,10 @@ namespace Company
         {
             depatments.Add(dep);
         }
+        public void Add_TypeOfPosition(TypeOfPosition tpos)
+        {
+            typeOfPositions.Add(tpos);
+        }
         public void Remove_Employee(int index)
         {
             employees.Remove(index);
@@ -61,6 +72,10 @@ namespace Company
         public void Remove_Depatment(int index)
         {
             depatments.Remove(index);
+        }
+        public void Remove_TypeOfPosition(int index)
+        {
+            typeOfPositions.Remove(index);
         }
         public void Sort_Employee()
         {
@@ -74,6 +89,10 @@ namespace Company
         {
             depatments.Sort();
         }
+        public void Sort_TypeOfPosition()
+        {
+            typeOfPositions.Sort();
+        }
         public bool Exists_Employee(Employee empl)
         {
             return employees.Exists(empl);
@@ -85,6 +104,10 @@ namespace Company
         public bool Exists_Depatment(Depatment dep)
         {
             return depatments.Exists(dep);
+        }
+        public bool Exists_TypeOfPosition(TypeOfPosition tpos)
+        {
+            return typeOfPositions.Exists(tpos);
         }
         public string ToString_Employee()
         {
@@ -98,20 +121,43 @@ namespace Company
         {
             return depatments.ToString();
         }
-        public void Generate_Company(int empl, int pos, int dep)
+        public string ToString_TypeOfPosition()
         {
-            Random rnd = new Random();
-            for (int i = 0; i < pos; i++)
+            return typeOfPositions.ToString();
+        }
+        public bool Generate_Company(int empl, int dep)
+        {
+            if (dep < 2 || empl <= dep + 3) return false;
+            else
             {
-                positions.Add(new Position(i + 1, "Должность-" + i + 1));
-            }
-            for (int i = 0; i < dep; i++)
-            {
-                depatments.Add(new Depatment(i + 1, "Подразделение-" + i + 1));
-            }
-            for (int i = 0; i < empl; i++)
-            {
-                employees.Add(new Employee("Фамилия-" + i, "Имя-" + i, "Отчество-" + i, rnd.Next(1, pos + 1), rnd.Next(1, dep + 1)));
+                Random rnd = new Random();
+                typeOfPositions.Add(new TypeOfPosition(1, "Руководитель"));
+                typeOfPositions.Add(new TypeOfPosition(2, "Начальник подразделения"));
+                typeOfPositions.Add(new TypeOfPosition(3, "Работник"));
+                positions.Add(new Position(1, "Директор", 1));
+                employees.Add(new Employee("Фамилия-1", "Имя-1", "Отчество-1", 1, 0));
+                positions.Add(new Position(2, "Главный бухгалтер", 1));
+                employees.Add(new Employee("Фамилия-2", "Имя-2", "Отчество-2", 2, 0));
+                positions.Add(new Position(3, "Заместитель директора", 1));
+                employees.Add(new Employee("Фамилия-3", "Имя-3", "Отчество-3", 3, 0));
+                depatments.Add(new Depatment(0, "Руководство"));
+                for (int i = 1; i <= dep; i++)
+                {
+                    depatments.Add(new Depatment(i, "Подразделение-" + i));
+                    positions.Add(new Position(i + 3, "Начальник подразделения-" + i, 2));
+                    employees.Add(new Employee("Фамилия-" + i + 3, "Имя-" + i + 3, "Отчество-" + i + 3, 2, i));
+                }
+                int maxPos = empl - employees.Count;
+                if (maxPos > 5) maxPos = 5;
+                for (int i = 1; i <= maxPos; i++)
+                {
+                    positions.Add(new Position(i + 3 + dep, "Должность работника-" + i, 3));
+                }
+                for (int i = 0; i < empl; i++)
+                {
+                    employees.Add(new Employee("Фамилия-" + i, "Имя-" + i, "Отчество-" + i, 3 + dep + rnd.Next(1, maxPos + 1), rnd.Next(1, dep + 1)));
+                }
+                return true;
             }
         }
     }
