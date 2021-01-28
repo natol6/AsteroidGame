@@ -20,12 +20,14 @@ namespace AsteroidGame.Objects
             Properties.Resources.asteroid_270,
             Properties.Resources.asteroid_315};
         private int i = 0;
+        public static event Message AsteroidDel;
 
         public int Power { get; set; }
         public Asteroid(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
             Power = Program.rnd.Next(3, 10);
         }
+        
         public override void Draw()
         {
             Game.__buffer.Graphics.DrawImage(images[i], Pos.X, Pos.Y, Size.Width, Size.Height);
@@ -88,6 +90,11 @@ namespace AsteroidGame.Objects
                     return 0;
             }
             throw new ArgumentException("Объект не является Астероидом!");
+        }
+        public void AstDel()
+        {
+            Enabled = false;
+            AsteroidDel.Invoke();
         }
 
     }

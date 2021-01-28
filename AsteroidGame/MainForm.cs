@@ -77,6 +77,7 @@ namespace AsteroidGame
                 records.Remove(i - 1);
                 i--;
             }
+            records.Save();
         }
         public string Nik() => player.Nik;
         private void btnOk_Click(object sender, EventArgs e)
@@ -109,8 +110,9 @@ namespace AsteroidGame
             game.Width = Width;
             game.Left = Left;
             game.Top = Top;
-            game.Begin(game.Width, game.Height);
+            game.BeginForm(game.Width, game.Height);
             Game.Init(game);
+            game.BeginGame();
             game.FormClosing += RecAdd;
             if (player.Record > 0)
             {

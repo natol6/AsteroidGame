@@ -12,6 +12,7 @@ namespace AsteroidGame.Objects
         public static event Message MessageBullet;
         public Bullet(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
+            Enabled = false;
         }
         public override void Draw()
         {
@@ -20,10 +21,11 @@ namespace AsteroidGame.Objects
         public override void Update()
         {
             Pos.X += Dir.X;
-            //if (Pos.X > Game.Width) Pos.X = 0;
+            if (Pos.X > Game.Width) Enabled = false;
         }
         public void Hit()
         {
+            Enabled = false;
             MessageBullet?.Invoke();
         }
         

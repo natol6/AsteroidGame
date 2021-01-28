@@ -13,7 +13,7 @@ namespace AsteroidGame
     class Records : IEnumerable<Player>
     {
         private List<Player> records = new List<Player>();
-        private readonly string fileName = "Records//records.json";
+        private readonly string fileName = "../../../Records/records.json";
         private readonly string title = $"{"Игрок:",20}{"Дата:",33}{"Время:",20}{"Очки:",20}\n\n";
         private readonly string currentWinner = "{0,4}. {1,-30}{2,-15:d}{2,-15:HH:mm}   {3,10}\n";
         private readonly string currentPlayer = "{0,4}. {1,-30}{2,-15:d}{2,-15:HH:mm}   {3,10} - Ваш результат\n";
@@ -26,7 +26,7 @@ namespace AsteroidGame
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         public void Add(Player p)
         {
-            records.Add(p);
+            records.Add(new Player(p.Nik, p.DateRecord, p.Record));
         }
         public void Remove(int index)
         {
