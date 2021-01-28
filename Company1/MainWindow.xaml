@@ -18,9 +18,9 @@
                     <MenuItem Name="createExample" Header="_Пример Example" Click="createExample_Click"></MenuItem>
                 </MenuItem>
                 <MenuItem Name="load" Header="_Загрузить">
-                    <ComboBox Name="Companyes" SelectionChanged="Companyes_SelectionChanged">
+                    <ListBox Name="Companyes" SelectionChanged="Companyes_SelectionChanged" HorizontalContentAlignment="Left">
                         
-                    </ComboBox>
+                    </ListBox>
                 </MenuItem>
                 <MenuItem Name="save" Header="_Сохранить" Click="save_Click"></MenuItem>
                 <MenuItem Name="delete" Header="_Удалить" Click="delete_Click"></MenuItem>
@@ -33,6 +33,33 @@
                         <ColumnDefinition Width="0.4*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Margin="10,10,10,50" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="14">Фильтр по типу персонала</TextBlock>
+                        <ComboBox Name="TypeOfPositionInsert" Grid.Row="0" Margin="10,50,10,20" DisplayMemberPath="Title" SelectionChanged="TypeOfPositionInsert_SelectionChanged">
+                            
+                        </ComboBox>
+                        <TextBlock Grid.Row="1" Margin="10,10,10,50" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="14">Фильтр по подразделениям</TextBlock>
+                        <ComboBox Name="DepatmentInsert" Grid.Row="1" Margin="10,50,10,20" DisplayMemberPath="Title" SelectionChanged="DepatmentInsert_SelectionChanged"></ComboBox>
+                        <TextBlock Grid.Row="2" Margin="10,10,10,50" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="14">Фильтр по должностям</TextBlock>
+                        <ComboBox Name="PositionInsert" Grid.Row="2" Margin="10,50,10,20" DisplayMemberPath="Title" SelectionChanged="PositionInsert_SelectionChanged"></ComboBox>
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Name="Add" Grid.Column="0" Padding="1,1,1,1" Margin="-1,30,4,30" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.CanContentScroll="True" FontSize="9" UseLayoutRounding="True" BorderBrush="#FF707070" Background="#FF44F73C">Добавить</Button>
+                            <Button Name="Edit" Grid.Column="1" Margin="4,30,4,30" FontSize="9">Редактировать</Button>
+                            <Button Name="Delete" Grid.Column="2" FontSize="9" Margin="4,30,4,30" Background="#FFF5503F">Удалить</Button>
+                        </Grid>
+                    </Grid>
+                    
                     <ScrollViewer Grid.Column="1">
                         <ListView Name="employees">
                             <ListView.View>

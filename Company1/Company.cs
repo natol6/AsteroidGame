@@ -149,7 +149,7 @@ namespace Company1
                 {
                     depatments.Add(new Depatment(i, "Подразделение-" + i));
                     positions.Add(new Position(i + 3, "Начальник подразделения-" + i, 2));
-                    employees.Add(new Employee("Фамилия-" + i + 3, "Имя-" + i + 3, "Отчество-" + i + 3, 2, i));
+                    employees.Add(new Employee("Фамилия-" + i + 3, "Имя-" + i + 3, "Отчество-" + i + 3, i + 3, i));
                 }
                 int maxPos = empl - employees.Count;
                 if (maxPos > 5) maxPos = 5;

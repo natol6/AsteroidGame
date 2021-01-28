@@ -24,6 +24,7 @@ namespace Company1
         private string companyNameBegin = "Предприятие не создано или не загружено";
         private string companyName;
         private Company company;
+        private string titleSort;
         public MainWindow()
         {
             InitializeComponent();
@@ -46,6 +47,7 @@ namespace Company1
             companyName = company.Title;
             this.Title = companyName;
             if (!companyes.Exists(companyName)) companyes.Add(companyName);
+            this.Binding(0);
         }
 
         private void createNew_Click(object sender, RoutedEventArgs e)
@@ -66,6 +68,7 @@ namespace Company1
                     this.Title = companyName;
                     company = new Company(companyName);
                     if (!companyes.Exists(companyName)) companyes.Add(companyName);
+                    this.Binding(0);
                 }
             
             }
@@ -73,14 +76,7 @@ namespace Company1
             {
                 MessageBox.Show("Предприятие не создано.");
             }
-            // companyName = 
-            //company = new Company(наименование)
-        }
-
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
+                   }
 
         private void save_Click(object sender, RoutedEventArgs e)
         {
@@ -105,19 +101,72 @@ namespace Company1
             this.Title = companyName;
             company = new Company(companyName);
             company.Load();
-            this.Binding();
+            this.Binding(0);
         }
-        private void Binding()
+        private void Binding(int i)
         {
-            var emplAll = from e in company.Employees
-                         join p in company.Positions on e.PositionId equals p.Id
-                          join d in company.Depatments on e.DepatmentId equals d.Id
-                          select new {Surname = e.Surname,  Name = e.Name, MiddleName = e.MiddleName, PositionId = p.Title, DepatmentId = d.Title };
+            switch (i)
+            {
+                case 0:
+                    var emplAll = from e in company.Employees
+                                  join p in company.Positions on e.PositionId equals p.Id
+                                  join d in company.Depatments on e.DepatmentId equals d.Id
+                                  select new { Surname = e.Surname, Name = e.Name, MiddleName = e.MiddleName, PositionId = p.Title, DepatmentId = d.Title };
+                    employees.ItemsSource = emplAll;
+                    break;
+                case 1:
+                    var emplType = from e in company.Employees
+                                  join p in company.Positions on e.PositionId equals p.Id
+                                  join d in company.Depatments on e.DepatmentId equals d.Id
+                                  join t in company.TypeOfPositions on p.TypeOfPositionId equals t.Id
+                                  where t.Title == titleSort
+                                  select new { Surname = e.Surname, Name = e.Name, MiddleName = e.MiddleName, PositionId = p.Title, DepatmentId = d.Title };
+                    employees.ItemsSource = emplType;
+                    break;
+                case 2:
+                    var emplDep = from e in company.Employees
+                                  join p in company.Positions on e.PositionId equals p.Id
+                                  join d in company.Depatments on e.DepatmentId equals d.Id
+                                  where d.Title == titleSort
+                                  select new { Surname = e.Surname, Name = e.Name, MiddleName = e.MiddleName, PositionId = p.Title, DepatmentId = d.Title };
+                    employees.ItemsSource = emplDep;
+                    break;
+                case 3:
+                    var emplPos = from e in company.Employees
+                                  join p in company.Positions on e.PositionId equals p.Id
+                                  join d in company.Depatments on e.DepatmentId equals d.Id
+                                  where p.Title == titleSort
+                                  select new { Surname = e.Surname, Name = e.Name, MiddleName = e.MiddleName, PositionId = p.Title, DepatmentId = d.Title };
+                    employees.ItemsSource = emplPos;
+                    break;
+
+            }
+            
 
             typeOfPosition.ItemsSource = company.TypeOfPositions;
             position.ItemsSource = company.Positions;
             depatment.ItemsSource = company.Depatments;
-            employees.ItemsSource = emplAll;
+            TypeOfPositionInsert.ItemsSource = company.TypeOfPositions;
+            DepatmentInsert.ItemsSource = company.Depatments;
+            PositionInsert.ItemsSource = company.Positions;
+        }
+
+        private void TypeOfPositionInsert_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            titleSort = ((TypeOfPosition)TypeOfPositionInsert.SelectedItem).Title;
+            this.Binding(1);
+        }
+
+        private void DepatmentInsert_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            titleSort = ((Depatment)DepatmentInsert.SelectedItem).Title;
+            this.Binding(2);
+        }
+
+        private void PositionInsert_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            titleSort = ((Position)PositionInsert.SelectedItem).Title;
+            this.Binding(3);
         }
     }
 }
