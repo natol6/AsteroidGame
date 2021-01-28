@@ -10,6 +10,7 @@ namespace Company1
 {
     class Position : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         private int id;
         public int Id
         {
@@ -17,7 +18,7 @@ namespace Company1
             set
             {
                 id = value;
-                OnPropertyChanged("Id");
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
             }
         }
         private string title;
@@ -27,7 +28,7 @@ namespace Company1
             set
             {
                 title = value;
-                OnPropertyChanged("Title");
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Title)));
             }
         }
         private int typeOfPositionId;
@@ -37,7 +38,7 @@ namespace Company1
             set
             {
                 typeOfPositionId = value;
-                OnPropertyChanged("TypeOfPositionId");
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TypeOfPositionId)));
             }
         }
 
@@ -47,11 +48,10 @@ namespace Company1
             Title = title;
             TypeOfPositionId = typeOfPosition;
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        public override string ToString()
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            return $"{title}";
         }
+
     }
 }

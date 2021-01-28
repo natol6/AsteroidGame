@@ -10,6 +10,7 @@ namespace Company1
 {
     class Employee : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         private string surname;
         public string Surname 
         {
@@ -17,7 +18,7 @@ namespace Company1
             set
             {
                 surname = value;
-                OnPropertyChanged("Surname");
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Surname)));
             }
         }
         private string name;
@@ -27,7 +28,7 @@ namespace Company1
             set
             {
                 name = value;
-                OnPropertyChanged("Name");
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
             }
         }
         private string middlename;
@@ -37,7 +38,7 @@ namespace Company1
             set
             {
                 middlename = value;
-                OnPropertyChanged("MiddleName");
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MiddleName)));
             }
         }
         private int positionId;
@@ -47,7 +48,7 @@ namespace Company1
             set
             {
                 positionId = value;
-                OnPropertyChanged("PositionId");
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PositionId)));
             }
         }
         private int depatmentId;
@@ -57,7 +58,7 @@ namespace Company1
             set
             {
                 depatmentId = value;
-                OnPropertyChanged("DepatmentId");
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DepatmentId)));
             }
         }
         public Employee(string surname, string name, string middleName, int positionId, int depatmentId)
@@ -68,11 +69,10 @@ namespace Company1
             PositionId = positionId;
             DepatmentId = depatmentId;
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        public override string ToString()
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            return $"{surname} {name} {middlename}";
         }
+
     }
 }

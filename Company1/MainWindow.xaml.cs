@@ -46,7 +46,7 @@ namespace Company1
             company.Generate_Company(110, 8);
             companyName = company.Title;
             this.Title = companyName;
-            if (!companyes.Exists(companyName)) companyes.Add(companyName);
+            if (!companyes.Contains(companyName)) companyes.Add(companyName);
             this.Binding(0);
         }
 
@@ -58,7 +58,7 @@ namespace Company1
             {
                 if (cnd.NameCompany == "")
                     MessageBox.Show("Вы не ввели наименование. Предприятие не создано.");
-                else if (companyes.Exists(companyName))
+                else if (companyes.Contains(companyName))
                 {
                     MessageBox.Show("Предприятие с таким наименованием было создано ранее. Загрузите его для работы.");
                 }
@@ -67,7 +67,7 @@ namespace Company1
                     companyName = cnd.NameCompany;
                     this.Title = companyName;
                     company = new Company(companyName);
-                    if (!companyes.Exists(companyName)) companyes.Add(companyName);
+                    if (!companyes.Contains(companyName)) companyes.Add(companyName);
                     this.Binding(0);
                 }
             

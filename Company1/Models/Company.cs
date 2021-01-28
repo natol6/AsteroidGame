@@ -65,70 +65,40 @@ namespace Company1
         {
             typeOfPositions.Add(tpos);
         }
-        public void Remove_Employee(int index)
+        public void Remove_Employee(Employee empl)
         {
-            employees.Remove(index);
+            employees.Remove(empl);
         }
-        public void Remove_Position(int index)
+        public void Remove_Position(Position pos)
         {
-            positions.Remove(index);
+            positions.Remove(pos);
         }
-        public void Remove_Depatment(int index)
+        public void Remove_Depatment(Depatment dep)
         {
-            depatments.Remove(index);
+            depatments.Remove(dep);
         }
-        public void Remove_TypeOfPosition(int index)
+        public void Remove_TypeOfPosition(TypeOfPosition tpos)
         {
-            typeOfPositions.Remove(index);
+            typeOfPositions.Remove(tpos);
         }
-        public void Sort_Employee()
+        
+        public bool Contains_Employee(Employee empl)
         {
-            employees.Sort();
+            return employees.Contains(empl);
         }
-        public void Sort_Position()
+        public bool Contains_Position(Position pos)
         {
-            positions.Sort();
+            return positions.Contains(pos);
         }
-        public void Sort_Depatment()
+        public bool Contains_Depatment(Depatment dep)
         {
-            depatments.Sort();
+            return depatments.Contains(dep);
         }
-        public void Sort_TypeOfPosition()
+        public bool Contains_TypeOfPosition(TypeOfPosition tpos)
         {
-            typeOfPositions.Sort();
+            return typeOfPositions.Contains(tpos);
         }
-        public bool Exists_Employee(Employee empl)
-        {
-            return employees.Exists(empl);
-        }
-        public bool Exists_Position(Position pos)
-        {
-            return positions.Exists(pos);
-        }
-        public bool Exists_Depatment(Depatment dep)
-        {
-            return depatments.Exists(dep);
-        }
-        public bool Exists_TypeOfPosition(TypeOfPosition tpos)
-        {
-            return typeOfPositions.Exists(tpos);
-        }
-        public string ToString_Employee()
-        {
-            return employees.ToString();
-        }
-        public string ToString_Position()
-        {
-            return positions.ToString();
-        }
-        public string ToString_Depatment()
-        {
-            return depatments.ToString();
-        }
-        public string ToString_TypeOfPosition()
-        {
-            return typeOfPositions.ToString();
-        }
+        
         public bool Generate_Company(int empl, int dep)
         {
             if (dep < 2 || empl <= dep + 3) return false;

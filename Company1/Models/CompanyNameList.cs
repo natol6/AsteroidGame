@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace Company1
 {
@@ -18,16 +19,13 @@ namespace Company1
 
         public void LoadCompanyName()
         {
-            list = JsonConvert.DeserializeObject<List<string>>(File.ReadAllText("../../../Resourses/Companyes.json"));
+            list = JsonConvert.DeserializeObject<ObservableCollection<string>>(File.ReadAllText("../../../Resourses/Companyes.json"));
         }
         public override void Load(string company)
         {
             throw new NotImplementedException();
         }
 
-        public override bool Exists(string str)
-        {
-            return list.Exists(x => x == str);
-        }
+        
     }
 }
