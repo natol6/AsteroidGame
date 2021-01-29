@@ -3,17 +3,60 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
-namespace Company
+namespace Company1
 {
-    class Company
+    class CompanyViewModels : INotifyPropertyChanged
     {
-        public string Title { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+        private string title;
+        public string Title 
+        {
+            get => title;
+            set 
+            {
+                title = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Title)));
+            } 
+        }
         private EmployeeList employees;
+        public EmployeeList Employees 
+        { 
+            get => employees;
+            set
+            {
+
+            }
+        }
         private PositionList positions;
+        public PositionList Positions 
+        { 
+            get => positions;
+            set
+            {
+
+            }
+        }
         private DepatmentList depatments;
+        public DepatmentList Depatments 
+        { 
+            get => depatments;
+            set
+            {
+
+            }
+        }
         private TypeOfPositionList typeOfPositions;
-        public Company(string title)
+        public TypeOfPositionList TypeOfPositions 
+        { 
+            get => typeOfPositions;
+            set
+            {
+
+            }
+        }
+        public CompanyViewModels(string title)
         {
             Title = title;
             employees = new EmployeeList(title);
@@ -21,7 +64,7 @@ namespace Company
             depatments = new DepatmentList(title);
             typeOfPositions = new TypeOfPositionList(title);
         }
-        public Company()
+        public CompanyViewModels()
         {
             Title = "Example";
             employees = new EmployeeList(Title);
@@ -29,7 +72,7 @@ namespace Company
             depatments = new DepatmentList(Title);
             typeOfPositions = new TypeOfPositionList(Title);
         }
-        
+
         public void Save()
         {
             employees.Save();
@@ -61,70 +104,40 @@ namespace Company
         {
             typeOfPositions.Add(tpos);
         }
-        public void Remove_Employee(int index)
+        public void Remove_Employee(Employee empl)
         {
-            employees.Remove(index);
+            employees.Remove(empl);
         }
-        public void Remove_Position(int index)
+        public void Remove_Position(Position pos)
         {
-            positions.Remove(index);
+            positions.Remove(pos);
         }
-        public void Remove_Depatment(int index)
+        public void Remove_Depatment(Depatment dep)
         {
-            depatments.Remove(index);
+            depatments.Remove(dep);
         }
-        public void Remove_TypeOfPosition(int index)
+        public void Remove_TypeOfPosition(TypeOfPosition tpos)
         {
-            typeOfPositions.Remove(index);
+            typeOfPositions.Remove(tpos);
         }
-        public void Sort_Employee()
+        
+        public bool Contains_Employee(Employee empl)
         {
-            employees.Sort();
+            return employees.Contains(empl);
         }
-        public void Sort_Position()
+        public bool Contains_Position(Position pos)
         {
-            positions.Sort();
+            return positions.Contains(pos);
         }
-        public void Sort_Depatment()
+        public bool Contains_Depatment(Depatment dep)
         {
-            depatments.Sort();
+            return depatments.Contains(dep);
         }
-        public void Sort_TypeOfPosition()
+        public bool Contains_TypeOfPosition(TypeOfPosition tpos)
         {
-            typeOfPositions.Sort();
+            return typeOfPositions.Contains(tpos);
         }
-        public bool Exists_Employee(Employee empl)
-        {
-            return employees.Exists(empl);
-        }
-        public bool Exists_Position(Position pos)
-        {
-            return positions.Exists(pos);
-        }
-        public bool Exists_Depatment(Depatment dep)
-        {
-            return depatments.Exists(dep);
-        }
-        public bool Exists_TypeOfPosition(TypeOfPosition tpos)
-        {
-            return typeOfPositions.Exists(tpos);
-        }
-        public string ToString_Employee()
-        {
-            return employees.ToString();
-        }
-        public string ToString_Position()
-        {
-            return positions.ToString();
-        }
-        public string ToString_Depatment()
-        {
-            return depatments.ToString();
-        }
-        public string ToString_TypeOfPosition()
-        {
-            return typeOfPositions.ToString();
-        }
+        
         public bool Generate_Company(int empl, int dep)
         {
             if (dep < 2 || empl <= dep + 3) return false;
@@ -145,7 +158,7 @@ namespace Company
                 {
                     depatments.Add(new Depatment(i, "Подразделение-" + i));
                     positions.Add(new Position(i + 3, "Начальник подразделения-" + i, 2));
-                    employees.Add(new Employee("Фамилия-" + i + 3, "Имя-" + i + 3, "Отчество-" + i + 3, 2, i));
+                    employees.Add(new Employee("Фамилия-" + i + 3, "Имя-" + i + 3, "Отчество-" + i + 3, i + 3, i));
                 }
                 int maxPos = empl - employees.Count;
                 if (maxPos > 5) maxPos = 5;

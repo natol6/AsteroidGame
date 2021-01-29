@@ -14,7 +14,7 @@ namespace Company1
         private int id;
         public int Id
         {
-            get { return id; }
+            get => id; 
             set
             {
                 id = value;
@@ -24,7 +24,7 @@ namespace Company1
         private string title;
         public string Title
         {
-            get { return title; }
+            get => title; 
             set
             {
                 title = value;

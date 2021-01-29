@@ -23,7 +23,7 @@ namespace Company1
         private CompanyNameList companyes = new CompanyNameList();
         private string companyNameBegin = "Предприятие не создано или не загружено";
         private string companyName;
-        private Company company;
+        private CompanyViewModels company;
         private string titleSort;
         public MainWindow()
         {
@@ -42,7 +42,7 @@ namespace Company1
         private void createExample_Click(object sender, RoutedEventArgs e)
         {
             
-            company = new Company();
+            company = new CompanyViewModels();
             company.Generate_Company(110, 8);
             companyName = company.Title;
             this.Title = companyName;
@@ -66,7 +66,7 @@ namespace Company1
                 {
                     companyName = cnd.NameCompany;
                     this.Title = companyName;
-                    company = new Company(companyName);
+                    company = new CompanyViewModels(companyName);
                     if (!companyes.Contains(companyName)) companyes.Add(companyName);
                     this.Binding(0);
                 }
@@ -99,7 +99,7 @@ namespace Company1
         {
             companyName = (string)Companyes.SelectedItem;
             this.Title = companyName;
-            company = new Company(companyName);
+            company = new CompanyViewModels(companyName);
             company.Load();
             this.Binding(0);
         }

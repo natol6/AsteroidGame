@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Company1
+namespace Company_Lesson_5.Models
 {
     class Employee : INotifyPropertyChanged
     {
@@ -41,34 +41,17 @@ namespace Company1
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MiddleName)));
             }
         }
-        private int positionId;
-        public int PositionId 
+        private string position;
+        public string Position
         {
-            get => positionId; 
+            get => position;
             set
             {
-                positionId = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PositionId)));
+                position = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Position)));
             }
         }
-        private int depatmentId;
-        public int DepatmentId 
-        {
-            get => depatmentId; 
-            set
-            {
-                depatmentId = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DepatmentId)));
-            }
-        }
-        public Employee(string surname, string name, string middleName, int positionId, int depatmentId)
-        {
-            Surname = surname;
-            Name = name;
-            MiddleName = middleName;
-            PositionId = positionId;
-            DepatmentId = depatmentId;
-        }
+        
         public override string ToString()
         {
             return $"{surname} {name} {middlename}";

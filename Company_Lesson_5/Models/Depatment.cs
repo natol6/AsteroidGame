@@ -5,44 +5,39 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
 
-namespace Company1
+
+namespace Company_Lesson_5.Models
 {
-    class TypeOfPosition : INotifyPropertyChanged
+    class Depatment : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private int id;
-        public int Id 
-        {
-            get => id; 
-            set 
-            { 
-                id = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
-            } 
-        }
+                
         private string title;
-        public string Title 
+        public string Title
         {
             get => title; 
             set
             {
                 title = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Title)));
-            } 
+            }
         }
-
-        public TypeOfPosition(int id, string title)
+        public ObservableCollection<Employee> Employees { get; set; } = new ObservableCollection<Employee>();
+        public void Add(Employee empl)
         {
-            Id = id;
-            Title = title;
-
+            Employees.Add(empl);
         }
-        
+        public void RemoveSelectedEmployee(Employee empl)
+        {
+            Employees.Remove(empl);
+        }
         public override string ToString()
         {
             return $"{title}";
         }
+
 
     }
 }
