@@ -7,14 +7,17 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Collections;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
+using System.ComponentModel;
 
-namespace Company1
+namespace Company1.Models
 {
-    abstract class BaseList<T>: IEnumerable<T>
+    abstract class BaseList<T>: IEnumerable<T>, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         protected ObservableCollection<T> list;
         protected string FileName { get; set; }
-        protected string Company { get; set; }
+        public string Company { get; set; }
         public BaseList(string company)
         {
             list = new ObservableCollection<T>();
@@ -39,7 +42,10 @@ namespace Company1
         {
             File.WriteAllText(FileName, JsonConvert.SerializeObject(list));
         }
-        public abstract void Load(string company);
+        public void Load()
+        {
+            list = JsonConvert.DeserializeObject<ObservableCollection<T>>(File.ReadAllText(FileName));
+        }
 
         public void Add(T obj)
         {
@@ -58,6 +64,21 @@ namespace Company1
         {
             return list.Contains(obj);
         }
-        
+        public void Clear()
+        {
+            list.Clear();
+        }
+        public override int GetHashCode()
+        {
+            UTF8Encoding utf8 = new UTF8Encoding();
+            byte[] hashLetter = utf8.GetBytes(Company);
+            int hash = 0;
+            for (int i = 0; i < hashLetter.Length; i++)
+            {
+                hash += hashLetter[i] * (int)Math.Pow((double)2, (double)i);
+            }
+            return hash;
+        }
+
     }
 }

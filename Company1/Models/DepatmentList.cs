@@ -7,25 +7,23 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Collections.ObjectModel;
 
-namespace Company1
+namespace Company1.Models
 {
     class DepatmentList : BaseList<Depatment>
     {
-        
+
         public DepatmentList(string company) : base(company)
         {
-            FileName = "../../../Resourses/Depatments_" + Company + ".json";
+            FileName = $"Resourses/Depatments_{GetHashCode()}.json";
         }
         public DepatmentList() : base()
         {
-            FileName = "../../../Resourses/Depatments_" + Company + ".json";
+            FileName = $"Resourses/Depatments_{GetHashCode()}.json";
         }
-
-        public override void Load(string company)
-        {
-            list = JsonConvert.DeserializeObject<ObservableCollection<Depatment>>(File.ReadAllText("../../../Resourses/Depatments_" + Company + ".json"));
-        }
-
         
+
+
+
+
     }
 }

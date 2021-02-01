@@ -7,24 +7,21 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Collections.ObjectModel;
 
-namespace Company1
+namespace Company1.Models
 {
     class PositionList : BaseList<Position>
     {
-        
+
         public PositionList(string company) : base(company)
         {
-            FileName = "../../../Resourses/Positions_" + Company + ".json";
+            FileName = $"Resourses/Positions_{GetHashCode()}.json";
         }
         public PositionList() : base()
         {
-            FileName = "../../../Resourses/Positions_" + Company + ".json";
+            FileName = $"Resourses/Positions_{GetHashCode()}.json";
         }
 
-        public override void Load(string company)
-        {
-            list = JsonConvert.DeserializeObject<ObservableCollection<Position>>(File.ReadAllText("../../../Resourses/Positions_" + Company + ".json"));
-        }
+        
                
     }
 }

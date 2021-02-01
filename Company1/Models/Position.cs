@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Company1
+namespace Company1.Models
 {
     class Position : INotifyPropertyChanged
     {

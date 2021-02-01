@@ -4,174 +4,216 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using Company1.Models;
+using System.Windows;
 
-namespace Company1
+namespace Company1.ViewModels
 {
     class CompanyViewModels : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private string title;
-        public string Title 
+        public string Title
         {
             get => title;
-            set 
+            set
             {
                 title = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Title)));
-            } 
-        }
-        private EmployeeList employees;
-        public EmployeeList Employees 
-        { 
-            get => employees;
-            set
-            {
-
             }
         }
-        private PositionList positions;
-        public PositionList Positions 
-        { 
-            get => positions;
-            set
-            {
+        public EmployeeList Employees { get; set; }
 
-            }
-        }
-        private DepatmentList depatments;
-        public DepatmentList Depatments 
-        { 
-            get => depatments;
-            set
-            {
+        public PositionList Positions { get; set; }
 
-            }
-        }
-        private TypeOfPositionList typeOfPositions;
-        public TypeOfPositionList TypeOfPositions 
-        { 
-            get => typeOfPositions;
-            set
-            {
+        public DepatmentList Depatments { get; set; }
 
-            }
-        }
-        public CompanyViewModels(string title)
+        public TypeOfPositionList TypeOfPositions { get; set; }
+        public CompanyNameList CompanyNames { get; set; } = new CompanyNameList();
+
+        private Employee _selectedEmployee;
+        public Employee SelectedEmployee
         {
-            Title = title;
-            employees = new EmployeeList(title);
-            positions = new PositionList(title);
-            depatments = new DepatmentList(title);
-            typeOfPositions = new TypeOfPositionList(title);
+            get => _selectedEmployee;
+            set
+            {
+                _selectedEmployee = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedEmployee)));
+            }
+        }
+        private Position _selectedPosition;
+        public Position SelectedPosition
+        {
+            get => _selectedPosition;
+            set
+            {
+                _selectedPosition = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedPosition)));
+            }
+        }
+        private Depatment _selectedDepatment;
+        public Depatment SelectedDepatment
+        {
+            get => _selectedDepatment;
+            set
+            {
+                _selectedDepatment = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedDepatment)));
+            }
+        }
+        private TypeOfPosition _selectedTypeOfPosition;
+        public TypeOfPosition SelectedTypeOfPosition
+        {
+            get => _selectedTypeOfPosition;
+            set
+            {
+                _selectedTypeOfPosition = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedTypeOfPosition)));
+            }
+        }
+        private string _selectedCompanyName;
+        public string SelectedCompanyName
+        {
+            get => _selectedCompanyName;
+            set
+            {
+                _selectedCompanyName = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedCompanyName)));
+            }
         }
         public CompanyViewModels()
         {
-            Title = "Example";
-            employees = new EmployeeList(Title);
-            positions = new PositionList(Title);
-            depatments = new DepatmentList(Title);
-            typeOfPositions = new TypeOfPositionList(Title);
+            CompanyNames.Load();
+            Title = "Предприятие не создано или не загружено";
+            Employees = new EmployeeList(Title);
+            Positions = new PositionList(Title);
+            Depatments = new DepatmentList(Title);
+            TypeOfPositions = new TypeOfPositionList(Title);
+            
         }
 
-        public void Save()
+        public void SaveCompany()
         {
-            employees.Save();
-            positions.Save();
-            depatments.Save();
-            typeOfPositions.Save();
+            Employees.Save();
+            Positions.Save();
+            Depatments.Save();
+            TypeOfPositions.Save();
+            if (!CompanyNames.Contains(Title)) CompanyNames.Add(Title);
+            CompanyNames.Save();
+
 
         }
-        public void Load()
+        public void Clear()
         {
-            employees.Load(Title);
-            positions.Load(Title);
-            depatments.Load(Title);
-            typeOfPositions.Load(Title);
+            Employees.Clear();
+            Positions.Clear();
+            Depatments.Clear();
+            TypeOfPositions.Clear();
         }
-        public void Add_Employee(Employee empl)
+        public void Rename()
         {
-            employees.Add(empl);
+            Title = SelectedCompanyName;
+            Employees.Company = Title;
+            Depatments.Company = Title;
+            Positions.Company = Title;
+            TypeOfPositions.Company = Title;
         }
-        public void Add_Position(Position pos)
+        public void RenameThis()
         {
-            positions.Add(pos);
-        }
-        public void Add_Depatment(Depatment dep)
-        {
-            depatments.Add(dep);
-        }
-        public void Add_TypeOfPosition(TypeOfPosition tpos)
-        {
-            typeOfPositions.Add(tpos);
-        }
-        public void Remove_Employee(Employee empl)
-        {
-            employees.Remove(empl);
-        }
-        public void Remove_Position(Position pos)
-        {
-            positions.Remove(pos);
-        }
-        public void Remove_Depatment(Depatment dep)
-        {
-            depatments.Remove(dep);
-        }
-        public void Remove_TypeOfPosition(TypeOfPosition tpos)
-        {
-            typeOfPositions.Remove(tpos);
-        }
-        
-        public bool Contains_Employee(Employee empl)
-        {
-            return employees.Contains(empl);
-        }
-        public bool Contains_Position(Position pos)
-        {
-            return positions.Contains(pos);
-        }
-        public bool Contains_Depatment(Depatment dep)
-        {
-            return depatments.Contains(dep);
-        }
-        public bool Contains_TypeOfPosition(TypeOfPosition tpos)
-        {
-            return typeOfPositions.Contains(tpos);
-        }
-        
-        public bool Generate_Company(int empl, int dep)
-        {
-            if (dep < 2 || empl <= dep + 3) return false;
-            else
+            SelectedCompanyName = null;
+            CompanyNameDialog cnd = new CompanyNameDialog();
+            cnd.ShowDialog();
+            if (SelectedCompanyName == null) return;
+            if (CompanyNames.Contains(SelectedCompanyName))
             {
-                Random rnd = new Random();
-                typeOfPositions.Add(new TypeOfPosition(1, "Руководитель"));
-                typeOfPositions.Add(new TypeOfPosition(2, "Начальник подразделения"));
-                typeOfPositions.Add(new TypeOfPosition(3, "Работник"));
-                positions.Add(new Position(1, "Директор", 1));
-                employees.Add(new Employee("Фамилия-1", "Имя-1", "Отчество-1", 1, 0));
-                positions.Add(new Position(2, "Главный бухгалтер", 1));
-                employees.Add(new Employee("Фамилия-2", "Имя-2", "Отчество-2", 2, 0));
-                positions.Add(new Position(3, "Заместитель директора", 1));
-                employees.Add(new Employee("Фамилия-3", "Имя-3", "Отчество-3", 3, 0));
-                depatments.Add(new Depatment(0, "Руководство"));
-                for (int i = 1; i <= dep; i++)
-                {
-                    depatments.Add(new Depatment(i, "Подразделение-" + i));
-                    positions.Add(new Position(i + 3, "Начальник подразделения-" + i, 2));
-                    employees.Add(new Employee("Фамилия-" + i + 3, "Имя-" + i + 3, "Отчество-" + i + 3, i + 3, i));
-                }
-                int maxPos = empl - employees.Count;
-                if (maxPos > 5) maxPos = 5;
-                for (int i = 1; i <= maxPos; i++)
-                {
-                    positions.Add(new Position(i + 3 + dep, "Должность работника-" + i, 3));
-                }
-                for (int i = 0; i < empl; i++)
-                {
-                    employees.Add(new Employee("Фамилия-" + i, "Имя-" + i, "Отчество-" + i, 3 + dep + rnd.Next(1, maxPos + 1), rnd.Next(1, dep + 1)));
-                }
-                return true;
+                MessageBox.Show("Компания с таким наименованием есть в базе.");
+                return;
             }
+            Rename();
+        }
+        public void LoadCompany()
+        {
+            if (SelectedCompanyName == null) return;
+            Clear();
+            Rename();
+            Employees.Load();
+            Positions.Load();
+            Depatments.Load();
+            TypeOfPositions.Load();
+        }
+        public void DeleteCompany()
+        {
+            Clear();
+            SelectedCompanyName = "Предприятие не создано или не загружено";
+            Rename();
+        }
+        
+        public void CreateNew()
+        {
+            SelectedCompanyName = null;
+            CompanyNameDialog cnd = new CompanyNameDialog();
+            cnd.ShowDialog();
+            if (SelectedCompanyName == null) return;
+            if (CompanyNames.Contains(SelectedCompanyName))
+            {
+                MessageBox.Show("Компания с таким наименованием создана ранее. Загрузите ее для работы.");
+                return;
+            }
+            Clear();
+            Rename();
+
+        }
+
+        public void CreateExample()
+        {
+            int dep = 8;
+            int empl = 100;
+            SelectedCompanyName = "Example";
+            Clear();
+            Rename();
+            Random rnd = new Random();
+            TypeOfPositions.Add(new TypeOfPosition(1, "Руководитель"));
+            TypeOfPositions.Add(new TypeOfPosition(2, "Начальник подразделения"));
+            TypeOfPositions.Add(new TypeOfPosition(3, "Работник"));
+            Positions.Add(new Position(1, "Директор", 1));
+            Employees.Add(new Employee("Фамилия-1", "Имя-1", "Отчество-1", 1, 0));
+            Positions.Add(new Position(2, "Главный бухгалтер", 1));
+            Employees.Add(new Employee("Фамилия-2", "Имя-2", "Отчество-2", 2, 0));
+            Positions.Add(new Position(3, "Заместитель директора", 1));
+            Employees.Add(new Employee("Фамилия-3", "Имя-3", "Отчество-3", 3, 0));
+            Depatments.Add(new Depatment(0, "Руководство"));
+            for (int i = 1; i <= dep; i++)
+            {
+                Depatments.Add(new Depatment(i, "Подразделение-" + i));
+                Positions.Add(new Position(i + 3, "Начальник подразделения-" + i, 2));
+                Employees.Add(new Employee("Фамилия-" + i + 3, "Имя-" + i + 3, "Отчество-" + i + 3, i + 3, i));
+            }
+            int maxPos = empl - 3 - dep;
+            if (maxPos > 5) maxPos = 5;
+            for (int i = 1; i <= maxPos; i++)
+            {
+                Positions.Add(new Position(i + 3 + dep, "Должность работника-" + i, 3));
+            }
+            
+            for (int i = 3 + dep + 1; i <= empl; i++)
+            {
+                Employees.Add(new Employee("Фамилия-" + i, "Имя-" + i, "Отчество-" + i, 3 + dep + rnd.Next(1, maxPos + 1), rnd.Next(1, dep + 1)));
+            }
+            
+            
+        }
+        public void AddDepatment()
+        {
+            var depatment = new Depatment(Depatments.Max(x => x.Id) + 1, "Введите наименование");
+            Depatments.Add(depatment);
+            SelectedDepatment = depatment;
+
+        }
+        public void DeleteDepatment()
+        {
+            if (SelectedDepatment is null) return;
+            Depatments.Remove(SelectedDepatment);
+            SelectedDepatment = null;
         }
     }
 }
