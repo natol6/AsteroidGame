@@ -81,24 +81,24 @@ namespace AsteroidGame
         public static void DrawBegin()
         {
             
-            __buffer.Graphics.DrawString("Уровень " + __level + ".", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Italic), Brushes.Green, 200, 100);
+            __buffer.Graphics.DrawString($"Уровень {__level}.", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Italic), Brushes.Green, 200, 100);
             __buffer.Render();
 
         }
         public static void Draw()
         {
-            
+
             __buffer.Graphics.DrawImage(__background, 0, 0, Width, Height);
-            foreach (BaseObject obj in __objs)
-                if (obj.Enabled) obj.Draw();
-            foreach (Asteroid ast in __asteroids)
-                if(ast.Enabled) ast.Draw();
-            foreach (Bullet bullet in __bullets)
-                if (bullet.Enabled) bullet.Draw();
+            foreach (BaseObject obj in __objs.Where(x => x.Enabled))
+                obj.Draw();
+            foreach (Asteroid ast in __asteroids.Where(x => x.Enabled))
+                ast.Draw();
+            foreach (Bullet bullet in __bullets.Where(x => x.Enabled))
+                bullet.Draw();
             if (__ship.Enabled) __ship.Draw();
             if (__repair.Enabled) __repair.Draw();
             MainForm mf = Application.OpenForms[0] as MainForm;
-            __buffer.Graphics.DrawString("Пилот: " + mf.Nik(), new Font(FontFamily.GenericSansSerif, 15, FontStyle.Bold), Brushes.Orange, 0, 0); // SystemFonts.DefaultFont, Brushes.Orange, 0, 0);
+            __buffer.Graphics.DrawString($"Пилот: {mf.Nik()}", new Font(FontFamily.GenericSansSerif, 15, FontStyle.Bold), Brushes.Orange, 0, 0); // SystemFonts.DefaultFont, Brushes.Orange, 0, 0);
             __buffer.Render();
 
         }
