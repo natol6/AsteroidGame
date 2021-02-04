@@ -19,10 +19,6 @@ namespace Company1
     /// </summary>
     public partial class CompanyNameDialog : Window
     {
-        public string NameCompany
-        {
-            get { return companyNameBox.Text; }
-        }
         public CompanyNameDialog()
         {
             InitializeComponent();

@@ -6,38 +6,39 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Company1
+namespace Company1.Models
 {
     class Position : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         private int id;
         public int Id
         {
-            get { return id; }
+            get => id; 
             set
             {
                 id = value;
-                OnPropertyChanged("Id");
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
             }
         }
         private string title;
         public string Title
         {
-            get { return title; }
+            get => title; 
             set
             {
                 title = value;
-                OnPropertyChanged("Title");
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Title)));
             }
         }
         private int typeOfPositionId;
         public int TypeOfPositionId
         {
-            get { return typeOfPositionId; }
+            get => typeOfPositionId; 
             set
             {
                 typeOfPositionId = value;
-                OnPropertyChanged("TypeOfPositionId");
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TypeOfPositionId)));
             }
         }
 
@@ -47,11 +48,10 @@ namespace Company1
             Title = title;
             TypeOfPositionId = typeOfPosition;
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        public override string ToString()
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            return $"{title}";
         }
+
     }
 }

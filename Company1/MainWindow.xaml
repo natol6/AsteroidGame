@@ -4,140 +4,111 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Company1"
+        xmlns:vm="clr-namespace:Company1.ViewModels"
         mc:Ignorable="d"
-        Title="Предприятие" Height="450" Width="800" Closed="Window_Closed">
+        Title="{Binding Title}" Height="450" Width="800" Closed="Window_Closed">
+    <Window.DataContext>
+        <vm:CompanyViewModels/>
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.08*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
-            <MenuItem Header="_Предприятие" Click="MenuItem_Click">
+            <MenuItem Header="_Предприятие">
                 <MenuItem Header="_Создать">
-                    <MenuItem Name="createNew" Header="_Новое" Click="createNew_Click"></MenuItem>
-                    <MenuItem Name="createExample" Header="_Пример Example" Click="createExample_Click"></MenuItem>
+                    <MenuItem Name="CreateNew" Header="_Новое" Click="CreateNew_Click"></MenuItem>
+                    <MenuItem Name="CreateExample" Header="_Пример Example" Click="CreateExample_Click"></MenuItem>
                 </MenuItem>
                 <MenuItem Name="load" Header="_Загрузить">
-                    <ListBox Name="Companyes" SelectionChanged="Companyes_SelectionChanged" HorizontalContentAlignment="Left">
-                        
+                    <ListBox Name="Companyes" ItemsSource="{Binding CompanyNames}" SelectedItem="{Binding SelectedCompanyName}" HorizontalAlignment="Center" SelectionChanged="Companyes_SelectionChanged">
                     </ListBox>
                 </MenuItem>
-                <MenuItem Name="save" Header="_Сохранить" Click="save_Click"></MenuItem>
-                <MenuItem Name="delete" Header="_Удалить" Click="delete_Click"></MenuItem>
+                <MenuItem Name="Rename" Header="_Переименовать" Click="Rename_Click"></MenuItem>
+                <MenuItem Name="Save" Header="_Сохранить" Click="Save_Click"></MenuItem>
+                <MenuItem Name="DeleteCompany" Header="_Удалить" Click="DeleteCompany_Click"></MenuItem>
             </MenuItem>
         </Menu>
         <TabControl Grid.Row="1">
             <TabItem Header="Персонал">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.4*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Margin="10,10,10,50" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="14">Фильтр по типу персонала</TextBlock>
-                        <ComboBox Name="TypeOfPositionInsert" Grid.Row="0" Margin="10,50,10,20" DisplayMemberPath="Title" SelectionChanged="TypeOfPositionInsert_SelectionChanged">
-                            
-                        </ComboBox>
-                        <TextBlock Grid.Row="1" Margin="10,10,10,50" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="14">Фильтр по подразделениям</TextBlock>
-                        <ComboBox Name="DepatmentInsert" Grid.Row="1" Margin="10,50,10,20" DisplayMemberPath="Title" SelectionChanged="DepatmentInsert_SelectionChanged"></ComboBox>
-                        <TextBlock Grid.Row="2" Margin="10,10,10,50" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="14">Фильтр по должностям</TextBlock>
-                        <ComboBox Name="PositionInsert" Grid.Row="2" Margin="10,50,10,20" DisplayMemberPath="Title" SelectionChanged="PositionInsert_SelectionChanged"></ComboBox>
-                        <Grid Grid.Row="3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Button Name="Add" Grid.Column="0" Padding="1,1,1,1" Margin="-1,30,4,30" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.CanContentScroll="True" FontSize="9" UseLayoutRounding="True" BorderBrush="#FF707070" Background="#FF44F73C">Добавить</Button>
-                            <Button Name="Edit" Grid.Column="1" Margin="4,30,4,30" FontSize="9">Редактировать</Button>
-                            <Button Name="Delete" Grid.Column="2" FontSize="9" Margin="4,30,4,30" Background="#FFF5503F">Удалить</Button>
-                        </Grid>
-                    </Grid>
-                    
-                    <ScrollViewer Grid.Column="1">
-                        <ListView Name="employees">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Surname}">Фамилия</GridViewColumn>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}">Имя</GridViewColumn>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=MiddleName}">Отчество</GridViewColumn>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=PositionId}">Должность</GridViewColumn>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=DepatmentId}">Подразделение</GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </ScrollViewer>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Подразделения">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.4*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <ScrollViewer Grid.Column="1">
-                        <ListView Name="depatment">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Идентификатор (Id)</GridViewColumn>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}">Подразделение</GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </ScrollViewer>
-                </Grid>
+
             </TabItem>
             <TabItem Header="Справочники">
-                <Grid>
-                    <TabControl TabStripPlacement="Left">
-                        <TabItem Header="Список должностей">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.4*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <ScrollViewer Grid.Column="1">
-                                    <ListView Name="position">
-                                        <ListView.View>
-                                            <GridView>
-                                                <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Идентификатор (Id)</GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding Path=Title}">Должность</GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding Path=TypeOfPositionId}">Тип должности</GridViewColumn>
-                                            </GridView>
-                                        </ListView.View>
-                                    </ListView>
-                                </ScrollViewer>
-                            </Grid>
-                        </TabItem>
-                        <TabItem Header="Типы персонала">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.4*">      
-                                    </ColumnDefinition>
-                                    <ColumnDefinition Width="*">
-                                    </ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <ScrollViewer Grid.Column="1">
-                                    <ListView Name="typeOfPosition">
-                                        <ListView.View>
-                                            <GridView>
-                                                <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Идентификатор (Id)</GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding Path=Title}">Тип должности</GridViewColumn>
-                                            </GridView>
-                                        </ListView.View>
-                                    </ListView>
-                                    
-                                </ScrollViewer>
-                            </Grid>
-                        </TabItem>
-                    </TabControl>
-                </Grid>
+                <TabControl TabStripPlacement="Top">
+                    <TabItem Header="Подразделения">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70*"></ColumnDefinition>
+                                <ColumnDefinition Width="127*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <GroupBox Grid.Column="0" Header="Список подразделений">
+                                <DockPanel>
+                                    <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="2">
+                                        <Button Name="_AddDepatment" Content="Добавить" Margin="3" Click="AddDepatment_Click"/>
+                                        <Button Name="_DeleteDepatment" Content="Удалить" Margin="3" Click="DeleteDepatment_Click"/>
+                                    </UniformGrid>
+                                    <ListView Name="_Depatments" ItemsSource="{Binding Depatments}" SelectedItem="{Binding SelectedDepatment}" DisplayMemberPath="Title"/>
+                                </DockPanel>
+                            </GroupBox>
+                            <GroupBox Grid.Column="1" Header="Выбранное подразделение">
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="437*"></ColumnDefinition>
+                                        <ColumnDefinition Width="147*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0"  Margin="10,10,10,10">
+                                        <StackPanel Orientation="Horizontal" Margin="5">
+                                            <TextBlock Text="Наименование" Width="80"/>
+                                            <TextBox Width="200" Text="{Binding SelectedDepatment.Title}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Должности">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.4*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <ScrollViewer Grid.Column="1">
+                                <ListView Name="position">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Идентификатор (Id)</GridViewColumn>
+                                            <GridViewColumn DisplayMemberBinding="{Binding Path=Title}">Должность</GridViewColumn>
+                                            <GridViewColumn DisplayMemberBinding="{Binding Path=TypeOfPositionId}">Тип должности</GridViewColumn>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </ScrollViewer>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Типы персонала">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.4*">
+                                </ColumnDefinition>
+                                <ColumnDefinition Width="*">
+                                </ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <ScrollViewer Grid.Column="1">
+                                <ListView Name="typeOfPosition">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn DisplayMemberBinding="{Binding Path=Id}">Идентификатор (Id)</GridViewColumn>
+                                            <GridViewColumn DisplayMemberBinding="{Binding Path=Title}">Тип должности</GridViewColumn>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+
+                            </ScrollViewer>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
             </TabItem>
         </TabControl>
     </Grid>

@@ -6,58 +6,59 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Company1
+namespace Company1.Models
 {
     class Employee : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         private string surname;
         public string Surname 
         {
-            get { return surname; }
+            get => surname; 
             set
             {
                 surname = value;
-                OnPropertyChanged("Surname");
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Surname)));
             }
         }
         private string name;
         public string Name 
         {
-            get { return name; }
+            get => name; 
             set
             {
                 name = value;
-                OnPropertyChanged("Name");
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
             }
         }
         private string middlename;
         public string MiddleName 
         {
-            get { return middlename; }
+            get => middlename; 
             set
             {
                 middlename = value;
-                OnPropertyChanged("MiddleName");
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MiddleName)));
             }
         }
         private int positionId;
         public int PositionId 
         {
-            get { return positionId; }
+            get => positionId; 
             set
             {
                 positionId = value;
-                OnPropertyChanged("PositionId");
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PositionId)));
             }
         }
         private int depatmentId;
         public int DepatmentId 
         {
-            get { return depatmentId; }
+            get => depatmentId; 
             set
             {
                 depatmentId = value;
-                OnPropertyChanged("DepatmentId");
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DepatmentId)));
             }
         }
         public Employee(string surname, string name, string middleName, int positionId, int depatmentId)
@@ -68,11 +69,10 @@ namespace Company1
             PositionId = positionId;
             DepatmentId = depatmentId;
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        public override string ToString()
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            return $"{surname} {name} {middlename}";
         }
+
     }
 }
