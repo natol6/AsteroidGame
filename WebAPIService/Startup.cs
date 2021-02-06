@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAPIService.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAPIService
 {
@@ -25,7 +27,7 @@ namespace WebAPIService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddDbContext<CompanyDB>(opt => opt.UseSqlServer(Configuration.GetConnectionString("MyDb")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -34,8 +36,9 @@ namespace WebAPIService
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, CompanyDB db)
         {
+            db.Database.EnsureCreated();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
