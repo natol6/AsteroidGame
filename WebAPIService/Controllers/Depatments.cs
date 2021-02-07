@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WebAPIService.Models;
 using WebAPIService.Data;
 
+
 namespace WebAPIService.Controllers
 {
     [Route("api/[controller]")] // api/depatments
@@ -23,30 +24,30 @@ namespace WebAPIService.Controllers
         {
             return _db.Depatment.ToArray();
         }
-        [HttpGet("add/{title}")]
-        public void AddDepatment(string title)
+        [HttpGet("getEndDepatment")]
+        public Depatment GetEndDepatment()
         {
-            Depatment dep = new Depatment
-            {
-                Title = title,
-                
-            };
+            return _db.Depatment.OrderBy(d => d.Id).LastOrDefault();
+        }
+        [HttpPost]
+        public void AddDepatment(Depatment dep)
+        {
             _db.Depatment.Add(dep);
             _db.SaveChanges();
         }
-        [HttpGet("update/{id}/{title}")]
-        public void UpdateDepatment(int id, string title)
+        [HttpPut("{Id}")]
+        public void UpdateDepatment(int id, Depatment dep)
         {
-            Depatment dep = _db.Depatment.FirstOrDefault(d => d.Id == id);
-            if (dep != null)
+            Depatment depdb = _db.Depatment.FirstOrDefault(d => d.Id == id);
+            if (depdb != null)
             {
-                dep.Title = title;
-                _db.Depatment.Update(dep);
+                depdb.Title = dep.Title;
+                _db.Depatment.Update(depdb);
 
             }
             _db.SaveChanges();
         }
-        [HttpGet("remove/{id}")]
+        [HttpDelete("{Id}")]
         public void RemoveDepatment(int id)
         {
             Depatment dep = _db.Depatment.FirstOrDefault(d => d.Id == id);

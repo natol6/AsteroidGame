@@ -32,12 +32,12 @@ namespace Company_Lesson_7.Models
             }
         }
 
-        public Depatment(int id, string title)
-        {
-            Id = id;
-            Title = title;
+        //public Depatment(int id, string title)
+        //{
+            //Id = id;
+            //Title = title;
 
-        }
+        //}
         public override string ToString()
         {
             return $"{title}";

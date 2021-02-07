@@ -23,36 +23,34 @@ namespace WebAPIService.Controllers
         {
             return _db.Employee.ToArray();
         }
-        [HttpGet("add/{surname}/{name}/{middlename}/{positionid}/{depatmentid}")]
-        public void AddEmployee(string surname, string name, string middlename, int positionid, int depatmentid)
+        [HttpGet("getEndEmployee")]
+        public Employee GetEndEmployee()
         {
-            Employee empl = new Employee
-            { Surname = surname,
-                Name = name,
-                MiddleName = middlename,
-                PositionId = positionid,
-                DepatmentId = depatmentid
-            };
+            return _db.Employee.OrderBy(e => e.Id).LastOrDefault();
+        }
+        [HttpPost]
+        public void AddEmployee(Employee empl)
+        {
             _db.Employee.Add(empl);
             _db.SaveChanges();
         }
-        [HttpGet("update/{id}/{surname}/{name}/{middlename}/{positionid}/{depatmentid}")]
-        public void UpdateEmployee(int id, string surname, string name, string middlename, int positionid, int depatmentid)
+        [HttpPut("{Id}")]
+        public void UpdateEmployee(int id, Employee empl)
         {
-            Employee empl = _db.Employee.FirstOrDefault(employee => employee.Id == id);
-            if(empl != null)
+            Employee empldb = _db.Employee.FirstOrDefault(employee => employee.Id == id);
+            if(empldb != null)
             {
-                empl.Surname = surname;
-                empl.Name = name;
-                empl.MiddleName = middlename;
-                empl.PositionId = positionid;
-                empl.DepatmentId = depatmentid;
-                _db.Employee.Update(empl);
+                empldb.Surname = empl.Surname;
+                empldb.Name = empl.Name;
+                empldb.MiddleName = empl.MiddleName;
+                empldb.PositionId = empl.PositionId;
+                empldb.DepatmentId = empl.DepatmentId;
+                _db.Employee.Update(empldb);
                 
             }
             _db.SaveChanges();
         }
-        [HttpGet("remove/{id}")]
+        [HttpDelete("{Id}")]
         public void RemoveEmployee(int id)
         {
             Employee empl = _db.Employee.FirstOrDefault(employee => employee.Id == id);

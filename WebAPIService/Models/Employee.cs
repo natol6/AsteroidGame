@@ -16,7 +16,5 @@ namespace WebAPIService.Models
         public string MiddleName { get; set; }
         public int PositionId { get; set; }
         public int DepatmentId { get; set; }
-        
-        
     }
 }

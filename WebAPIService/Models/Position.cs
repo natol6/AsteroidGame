@@ -13,6 +13,5 @@ namespace WebAPIService.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public int TypeOfPositionId { get; set; }
-        
     }
 }

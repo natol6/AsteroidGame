@@ -23,28 +23,29 @@ namespace WebAPIService.Controllers
         {
             return _db.TypeOfPosition.ToArray();
         }
-        [HttpGet("add/{title}")]
-        public void AddTypeOfPosition(string title)
+        [HttpGet("getEndTypeOfPosition")]
+        public TypeOfPosition GetEndTypeOfPositon()
         {
-            TypeOfPosition top = new TypeOfPosition
-            {
-                Title = title,
-            };
+            return _db.TypeOfPosition.OrderBy(t => t.Id).LastOrDefault();
+        }
+        [HttpPost]
+        public void AddTypeOfPosition(TypeOfPosition top)
+        {
             _db.TypeOfPosition.Add(top);
             _db.SaveChanges();
         }
-        [HttpGet("update/{id}/{title}")]
-        public void UpdateTypeOfPosition(int id, string title)
+        [HttpPut("{Id}")]
+        public void UpdateTypeOfPosition(int id, TypeOfPosition top)
         {
-            TypeOfPosition top = _db.TypeOfPosition.FirstOrDefault(t => t.Id == id);
-            if (top != null)
+            TypeOfPosition topdb = _db.TypeOfPosition.FirstOrDefault(t => t.Id == id);
+            if (topdb != null)
             {
-                top.Title = title;
-                _db.TypeOfPosition.Update(top);
+                topdb.Title = top.Title;
+                _db.TypeOfPosition.Update(topdb);
             }
             _db.SaveChanges();
         }
-        [HttpGet("remove/{id}")]
+        [HttpDelete("{Id}")]
         public void RemoveTypeOfPosition(int id)
         {
             TypeOfPosition top = _db.TypeOfPosition.FirstOrDefault(t => t.Id == id);

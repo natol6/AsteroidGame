@@ -32,12 +32,6 @@ namespace Company_Lesson_7.Models
             } 
         }
 
-        public TypeOfPosition(int id, string title)
-        {
-            Id = id;
-            Title = title;
-
-        }
         
         public override string ToString()
         {

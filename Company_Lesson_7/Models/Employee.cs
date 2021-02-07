@@ -71,15 +71,15 @@ namespace Company_Lesson_7.Models
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DepatmentId)));
             }
         }
-        public Employee(int id, string surname, string name, string middleName, int positionId, int depatmentId)
-        {
-            Id = id;
-            Surname = surname;
-            Name = name;
-            MiddleName = middleName;
-            PositionId = positionId;
-            DepatmentId = depatmentId;
-        }
+        //public Employee(int id, string surname, string name, string middleName, int positionId, int depatmentId)
+        //{
+            //Id = id;
+            //Surname = surname;
+            //Name = name;
+            //MiddleName = middleName;
+            //PositionId = positionId;
+            //DepatmentId = depatmentId;
+        //}
         public override string ToString()
         {
             return $"{surname} {name} {middlename}";
