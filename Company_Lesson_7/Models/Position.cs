@@ -42,12 +42,12 @@ namespace Company_Lesson_7.Models
             }
         }
 
-        public Position(int id, string title, int typeOfPosition)
-        {
-            Id = id;
-            Title = title;
-            TypeOfPositionId = typeOfPosition;
-        }
+        //public Position(int id, string title, int typeOfPosition)
+        //{
+            //Id = id;
+            //Title = title;
+            //TypeOfPositionId = typeOfPosition;
+        //}
         public override string ToString()
         {
             return $"{title}";

@@ -8,14 +8,17 @@ using Company_Lesson_7.Models;
 using System.Windows;
 using System.Collections;
 using System.Collections.ObjectModel;
-
-
+using Microsoft.Extensions.Configuration;
+using System.Net.Http;
+using Company_Lesson_7.ViewModels;
+using System.Collections.Specialized;
 
 namespace Company_Lesson_7.ViewModels
 {
     class CompanyViewModels : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
         private string title;
         public string Title
         {
@@ -85,78 +88,17 @@ namespace Company_Lesson_7.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedCompanyName)));
             }
         }
-        DB_Connect dbconnect = new DB_Connect();
+        DB_Connect_API dbconnect = new DB_Connect_API();
         public CompanyViewModels()
         {
             Title = "Предприятие не создано или не загружено";
             CompanyNames.Add("Example");
-        }
-
-        /*public void SaveCompany()
-        {
-            Employees.Save();
-            Positions.Save();
-            Depatments.Save();
-            TypeOfPositions.Save();
-            if (!CompanyNames.Contains(Title)) CompanyNames.Add(Title);
-            CompanyNames.Save();
-
-
+            Employees.CollectionChanged += UpdateEmployee;
+            Depatments.CollectionChanged += UpdateDepatment;
+            Positions.CollectionChanged += UpdatePosition;
+            TypeOfPositions.CollectionChanged += UpdateTypeOfPosition;
         }
         
-        public void Rename()
-        {
-            Title = SelectedCompanyName;
-            Employees.Company = Title;
-            Depatments.Company = Title;
-            Positions.Company = Title;
-            TypeOfPositions.Company = Title;
-        }
-        public void RenameThis()
-        {
-            SelectedCompanyName = null;
-            CompanyNameDialog cnd = new CompanyNameDialog();
-            cnd.ShowDialog();
-            if (SelectedCompanyName == null) return;
-            if (CompanyNames.Contains(SelectedCompanyName))
-            {
-                MessageBox.Show("Компания с таким наименованием есть в базе.");
-                return;
-            }
-            Rename();
-        }
-        public void LoadCompany()
-        {
-            if (SelectedCompanyName == null) return;
-            Clear();
-            Rename();
-            Employees.Load();
-            Positions.Load();
-            Depatments.Load();
-            TypeOfPositions.Load();
-        }
-        public void DeleteCompany()
-        {
-            Clear();
-            SelectedCompanyName = "Предприятие не создано или не загружено";
-            Rename();
-        }
-        
-        public void CreateNew()
-        {
-            SelectedCompanyName = null;
-            CompanyNameDialog cnd = new CompanyNameDialog();
-            cnd.ShowDialog();
-            if (SelectedCompanyName == null) return;
-            if (CompanyNames.Contains(SelectedCompanyName))
-            {
-                MessageBox.Show("Компания с таким наименованием создана ранее. Загрузите ее для работы.");
-                return;
-            }
-            Clear();
-            Rename();
-
-        }*/
         public void LoadCompany()
         {
             //if (SelectedCompanyName == null) return;
@@ -164,15 +106,19 @@ namespace Company_Lesson_7.ViewModels
             //Rename();
             SelectedCompanyName = "Example";
             Title = SelectedCompanyName;
-            foreach (TypeOfPosition top in dbconnect.DbGetTypeOfPosition())
+            var typeofpositions = dbconnect.DbGetTypeOfPosition();
+            foreach (TypeOfPosition top in typeofpositions)
                 TypeOfPositions.Add(top);
-            foreach (Position pos in dbconnect.DbGetPosition())
+            var positions = dbconnect.DbGetPosition();
+            foreach (Position pos in positions)
                 Positions.Add(pos);
-            foreach (Depatment dep in dbconnect.DbGetDepatment())
+            var depatments = dbconnect.DbGetDepatment();
+            foreach (Depatment dep in depatments)
                 Depatments.Add(dep);
-            foreach (Employee empl in dbconnect.DbGetEmployee())
+            var employees = dbconnect.DbGetEmployee();
+            foreach (Employee empl in employees)
                 Employees.Add(empl);
-            
+
         }
         public void Clear()
         {
@@ -190,45 +136,55 @@ namespace Company_Lesson_7.ViewModels
             Title = SelectedCompanyName;
             //dbconnect.CreateDbAndConStrBuild(SelectedCompanyName);
             Random rnd = new Random();
-            TypeOfPositions.Add(dbconnect.AddBdTypeOfPosition("Руководитель"));
-            TypeOfPositions.Add(dbconnect.AddBdTypeOfPosition("Начальник подразделения"));
-            TypeOfPositions.Add(dbconnect.AddBdTypeOfPosition("Работник"));
-            Positions.Add(dbconnect.AddBdPosition("Директор", 1));
-            Employees.Add(dbconnect.AddBdEmployee("Фамилия-1", "Имя-1", "Отчество-1", 1, 1));
-            Positions.Add(dbconnect.AddBdPosition("Главный бухгалтер", 1));
-            Employees.Add(dbconnect.AddBdEmployee("Фамилия-2", "Имя-2", "Отчество-2", 2, 1));
-            Positions.Add(dbconnect.AddBdPosition("Заместитель директора", 1));
-            Employees.Add(dbconnect.AddBdEmployee("Фамилия-3", "Имя-3", "Отчество-3", 3, 1));
-            Depatments.Add(dbconnect.AddBdDepatment("Руководство"));
+            TypeOfPositions.Add(dbconnect.AddBdTypeOfPosition(new TypeOfPosition { Title = "Руководитель" }));
+            TypeOfPositions.Add(dbconnect.AddBdTypeOfPosition(new TypeOfPosition { Title = "Начальник подразделения" }));
+            TypeOfPositions.Add(dbconnect.AddBdTypeOfPosition(new TypeOfPosition { Title = "Работник" }));
+            Positions.Add(dbconnect.AddBdPosition(new Position { Title = "Директор", TypeOfPositionId = 1 }));
+            Employees.Add(dbconnect.AddBdEmployee(new Employee { Surname = "Фамилия-1", Name = "Имя-1", MiddleName = "Отчество-1", PositionId = 1, DepatmentId = 1 }));
+            Positions.Add(dbconnect.AddBdPosition(new Position { Title = "Главный бухгалтер", TypeOfPositionId = 1 }));
+            Employees.Add(dbconnect.AddBdEmployee(new Employee { Surname = "Фамилия-2", Name = "Имя-2", MiddleName= "Отчество-2", PositionId = 2, DepatmentId = 1 }));
+            Positions.Add(dbconnect.AddBdPosition(new Position { Title = "Заместитель директора", TypeOfPositionId = 1 }));
+            Employees.Add(dbconnect.AddBdEmployee(new Employee { Surname = "Фамилия-3", Name = "Имя-3", MiddleName = "Отчество-3", PositionId = 3, DepatmentId = 1 }));
+            Depatments.Add(dbconnect.AddBdDepatment(new Depatment { Title = "Руководство" }));
             for (int i = 1; i <= dep; i++)
             {
-                Depatments.Add(dbconnect.AddBdDepatment("Подразделение-" + i));
-                Positions.Add(dbconnect.AddBdPosition("Начальник подразделения-" + i, 2));
-                Employees.Add(dbconnect.AddBdEmployee("Фамилия-" + i + 3, "Имя-" + i + 3, "Отчество-" + i + 3, i + 3, i + 1));
+                Depatments.Add(dbconnect.AddBdDepatment(new Depatment { Title = "Подразделение-" + i }));
+                Positions.Add(dbconnect.AddBdPosition(new Position { Title = "Начальник подразделения-" + i, TypeOfPositionId = 2 }));
+                Employees.Add(dbconnect.AddBdEmployee(new Employee { Surname = "Фамилия-" + i + 3, Name = "Имя-" + i + 3, MiddleName = "Отчество-" + i + 3, PositionId = i + 3, DepatmentId = i + 1 }));
             }
             int maxPos = empl - 3 - dep;
             if (maxPos > 5) maxPos = 5;
             for (int i = 1; i <= maxPos; i++)
             {
-                Positions.Add(dbconnect.AddBdPosition("Должность работника-" + i, 3));
+                Positions.Add(dbconnect.AddBdPosition(new Position { Title = "Должность работника-" + i, TypeOfPositionId = 3 }));
             }
             
             for (int i = 3 + dep + 1; i <= empl; i++)
             {
-                Employees.Add(dbconnect.AddBdEmployee("Фамилия-" + i, "Имя-" + i, "Отчество-" + i, 3 + dep + rnd.Next(1, maxPos + 1), rnd.Next(1, dep + 1) + 1));
+                Employees.Add(dbconnect.AddBdEmployee(new Employee { Surname = "Фамилия-" + i, Name = "Имя-" + i, MiddleName = "Отчество-" + i, PositionId = 3 + dep + rnd.Next(1, maxPos + 1), DepatmentId = rnd.Next(1, dep + 1) + 1 }));
             }
-            
-            
+
+
         }
         public void AddTypeOfPosition()
         {
-            TypeOfPositions.Add(dbconnect.AddBdTypeOfPosition("??? Тип персонала ???"));
-            SelectedTypeOfPosition = TypeOfPositions[TypeOfPositions.Count - 1];
+            SelectedTypeOfPosition = null;
+            TypeOfPositions.Add(dbconnect.AddBdTypeOfPosition(new TypeOfPosition { Title = "??? Тип персонала ???" }));
+            SelectedTypeOfPosition = TypeOfPositions.OrderBy(t => t.Id).LastOrDefault();
 
+        }
+        public void UpdateTypeOfPosition(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if(e.Action == NotifyCollectionChangedAction.Replace)
+            {
+                TypeOfPosition new_top = e.NewItems[0] as TypeOfPosition;
+                dbconnect.UpdateBdTypeOfPosition(new_top);
+            }
+            
         }
         public void DeleteTypeOfPosition()
         {
-            if(Positions.Count(x => x.TypeOfPositionId == SelectedTypeOfPosition.Id) > 0)
+            if (Positions.Count(x => x.TypeOfPositionId == SelectedTypeOfPosition.Id) > 0)
             {
                 MessageBox.Show("Для удаления типа должности удалите или измените тип всех должностей, имеющих данный тип в таблице 'Должности'.");
                 return;
@@ -240,8 +196,18 @@ namespace Company_Lesson_7.ViewModels
         }
         public void AddDepatment()
         {
-            Depatments.Add(dbconnect.AddBdDepatment("??? Подразделение ???"));
-            SelectedDepatment = Depatments[Depatments.Count - 1];
+            SelectedDepatment = null;
+            Depatments.Add(dbconnect.AddBdDepatment(new Depatment { Title = "??? Подразделение ???" }));
+            SelectedDepatment = Depatments.OrderBy(d => d.Id).LastOrDefault();
+
+        }
+        public void UpdateDepatment(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Replace)
+            {
+                Depatment new_dep = e.NewItems[0] as Depatment;
+                dbconnect.UpdateBdDepatment(new_dep);
+            }
 
         }
         public void DeleteDepatment()
@@ -257,13 +223,23 @@ namespace Company_Lesson_7.ViewModels
         }
         public void AddPosition()
         {
-            if(TypeOfPositions.Count == 0)
+            if (TypeOfPositions.Count == 0)
             {
                 MessageBox.Show("Для добавления новой должности предварительно заполните таблицу 'Типы должностей'.");
                 return;
             }
-            Positions.Add(dbconnect.AddBdPosition("??? Должность ???", 1)); //надо скорректировать
-            SelectedPosition = Positions[Positions.Count - 1];
+            SelectedPosition = null;
+            Positions.Add(dbconnect.AddBdPosition(new Position { Title = "??? Должность ???", TypeOfPositionId = 1 }));
+            SelectedPosition = Positions.OrderBy(p => p.Id).LastOrDefault();
+
+        }
+        public void UpdatePosition(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Replace)
+            {
+                Position new_pos = e.NewItems[0] as Position;
+                dbconnect.UpdateBdPosition(new_pos);
+            }
 
         }
         public void DeletePosition()
@@ -284,8 +260,18 @@ namespace Company_Lesson_7.ViewModels
                 MessageBox.Show("Для добавления нового сотрудника предварительно заполните таблицы 'Должности' и 'Подразделения'.");
                 return;
             }
-            Employees.Add(dbconnect.AddBdEmployee("??? Фамилия ???", "??? Имя ???", "??? Отчество ???", 1, 1)); //надо скорректировать
-            SelectedEmployee = Employees[Employees.Count - 1];
+            SelectedEmployee = null;
+            Employees.Add(dbconnect.AddBdEmployee(new Employee { Surname = "??? Фамилия ???", Name = "??? Имя ???", MiddleName = "??? Отчество ???", PositionId = 1, DepatmentId = 1 }));
+            SelectedEmployee = Employees.OrderBy(e => e.Id).LastOrDefault();
+
+        }
+        public void UpdateEmployee(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Replace)
+            {
+                Employee new_empl = e.NewItems[0] as Employee;
+                dbconnect.UpdateBdEmployee(new_empl);
+            }
 
         }
         public void DeleteEmployee()

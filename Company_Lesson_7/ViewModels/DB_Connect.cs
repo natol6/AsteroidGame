@@ -12,8 +12,8 @@ namespace Company_Lesson_7.ViewModels
 {
     class DB_Connect
     {
-        public static IConfiguration Configuration { get; } = new ConfigurationBuilder()
-            .AddJsonFile("appconfig.json", false, true)
+        /*public static IConfiguration Configuration { get; } = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", false, true)
             .Build();
         //public static string ConnectionString => Configuration.GetConnectionString("Default");
         private static string connection_string;
@@ -277,6 +277,6 @@ namespace Company_Lesson_7.ViewModels
             var connection = new SqlConnection(connection_string);
             connection.Open();
             return connection;
-        }
+        }*/
     }
 }
